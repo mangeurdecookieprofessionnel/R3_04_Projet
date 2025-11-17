@@ -1,11 +1,12 @@
 package Appli;
 
 public class Plato {
-    public Ipiece [][]tab;
+    public Ipiece [][]tab;//Tableau de IPiece
     private final int ligne=8;
     private final int colonne=8;
 
-    public Plato() {
+    //Constructeur pour créer un plateau
+    public Plato(){
         tab = new Ipiece[ligne][colonne];
     }
 }
