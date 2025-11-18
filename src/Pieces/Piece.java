@@ -1,12 +1,14 @@
-package Appli;
+package Pieces;
+
+import Appli.Ipiece;
 
 public abstract class Piece implements Ipiece {
     private String type;
-    private String couleur;
+    private char couleur;
     private int x;
     private int y;
 
-    public Piece(String type, String couleur, int x, int y) {
+    public Piece(String type, char couleur, int x, int y) {
         this.type = type;
         this.couleur = couleur;
         this.x = x;
@@ -20,12 +22,5 @@ public abstract class Piece implements Ipiece {
         this.x = x;
         this.y = y;
     }
-
-    public void getCouleur(){
-        this.couleur = couleur;
-    }
-
-
-
 
 }
