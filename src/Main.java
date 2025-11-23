@@ -1,11 +1,15 @@
+import Appli.Move;
+import Pieces.Cavalier;
+import Pieces.Pawn;
+import Pieces.Piece;
+
 public class Main{
-    void main() {
+    public static void main(String[] args) {
 
-        IO.println(String.format("Hello and welcome!"));
 
-        for (int i = 1; i <= 5; i++) {
-
-            IO.println("i = " + i);
+        Piece piece = new Pawn("blanc", 4, 8);
+        for (Move move: piece.DeplacementsPossible()){
+            System.out.println(move.getEndX()+" "+move.getEndY());
         }
     }
 

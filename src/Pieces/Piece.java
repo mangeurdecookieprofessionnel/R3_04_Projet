@@ -1,26 +1,46 @@
 package Pieces;
 
-import Appli.Ipiece;
+import Appli.IPiece;
+import Appli.Move;
 
-public abstract class Piece implements Ipiece {
-    private String type;
-    private char couleur;
-    private int x;
-    private int y;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Piece(String type, char couleur, int x, int y) {
-        this.type = type;
+public abstract class Piece implements IPiece {
+    private String couleur;
+    private Position position;
+
+    public Piece(String couleur, int x, int y) {
         this.couleur = couleur;
-        this.x = x;
-        this.y = y;
-    }
-    public void getType(){
-        this.type = type;
+        this.position = new Position(x, y);
     }
 
-    public void getPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+    @Override
+    public String getType(){
+        return this.getClass().getSimpleName().toLowerCase();
     }
+
+    @Override
+    public Position getPosition() {
+        return position;
+    }
+
+    @Override
+    public String getCouleur() {
+        return couleur;
+    }
+
+    @Override
+    public List<Move> DeplacementsPossible() {
+        List<Move> deplacements = new ArrayList<>();
+        for (Move move: mouvement()){
+            if (move.getEndX()<9 && move.getEndX()>0 && move.getEndY()<9 && move.getEndY()>0){
+                deplacements.add(move);
+            }
+        }
+        return deplacements;
+    }
+
+    public abstract List<Move> mouvement();
 
 }
