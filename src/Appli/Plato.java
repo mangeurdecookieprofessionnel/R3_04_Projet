@@ -1,12 +1,16 @@
 package Appli;
 
 public class Plato {
-    public IPiece[][]tab;//Tableau de IPiece
-    private final int ligne=8;
-    private final int colonne=8;
+    public Square[][]tab;//Tableau de IPiece
+    private final int taille=8;
 
     //Constructeur pour créer un plateau
     public Plato(){
-        tab = new IPiece[ligne][colonne];
+        tab = new Square[taille][taille];
+        for (int i=0; i<taille; i++){
+            for(int j=0; j<taille; j++){
+                tab[i][j] = new Square(i, j);
+            }
+        }
     }
 }
