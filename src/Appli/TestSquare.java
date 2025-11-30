@@ -1,12 +1,13 @@
 package Appli;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class TestSquare {
+public class TestSquare {
+    @Test
+    public void test(){
 
-    public static void main(String[] args) {
-        Square square=new Square(0,0);
     }
 
 }

@@ -2,18 +2,28 @@ import Appli.IPiece;
 import Appli.Plato;
 import Appli.Square;
 import Pieces.King;
+import Pieces.Rook;
 
 public class Main{
     public static void main(String[] args) {
 
         Plato p = new Plato();
         IPiece roi = new King("Blanc");
-        Square square = new Square(5,0);
+        IPiece tour = new Rook("Blanc");
+        Square squareKing = new Square(5,5);
+        Square squareRook = new Square(5,5);
 
-        p.DeplacementsPossible(roi, square);
+        p.DeplacementsPossible(roi, squareKing);
 
-        for (Square square1 : p.DeplacementsPossible(roi, square)){
-            System.out.println("X : "+square1.getX() + " " +"       Y :"+ square1.getY());
+        int a=1, b=1;
+        for (Square square1 : p.DeplacementsPossible(roi, squareKing)){
+            System.out.println(a+")   X : "+square1.getX() + " " +"       Y :"+ square1.getY());
+            a++;
+        }
+        System.out.println("\n");
+        for (Square square1 : p.DeplacementsPossible(tour, squareRook)){
+            System.out.println(b+")   X : "+square1.getX() + " " +"       Y :"+ square1.getY());
+            b++;
         }
     }
 
