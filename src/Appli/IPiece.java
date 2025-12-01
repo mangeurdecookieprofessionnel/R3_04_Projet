@@ -8,5 +8,6 @@ public interface IPiece {
 
     public List<Square> mouvement(Square square);
 
+    public String afficherMouvementPiece(Square square);
 
 }

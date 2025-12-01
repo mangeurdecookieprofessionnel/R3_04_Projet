@@ -34,4 +34,17 @@ public class King implements IPiece {
 
         return squares;
     }
+
+    @Override
+    public String afficherMouvementPiece(Square square) {
+        String mouvements="";
+        int count=1;
+        List<Square> squares = mouvement(square);
+        for (Square square1 : squares) {
+            mouvements+=(count++)+")   X : "+square1.getX() + " " +"       Y :"+ square1.getY()+"\n";
+        }
+        return mouvements;
+    }
+
+
 }

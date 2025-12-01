@@ -1,5 +1,8 @@
 package Appli;
 
+import Pieces.King;
+import Pieces.Rook;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,5 +28,19 @@ public class Plato {
             }
         }
         return liste;
+    }
+
+    public String afficherMouvement(IPiece piece, Square square){
+        String mouvement = "";
+
+        DeplacementsPossible(piece, square);
+
+        int a=1;
+        for (Square square1 : DeplacementsPossible(piece, square)){
+            mouvement+=a+")   X : "+square1.getX() + " " +"       Y :"+ square1.getY()+"\n";
+            a++;
+        }
+
+        return mouvement;
     }
 }
