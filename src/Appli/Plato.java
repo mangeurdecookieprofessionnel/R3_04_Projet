@@ -11,27 +11,19 @@ import java.util.Map;
 
 public class Plato {
     private Map<Square, IPiece> plato;
-    public Square[][]tab;
     public static final int TAILLE =8;
 
     public Plato(){
         plato = new HashMap<Square, IPiece>();
-        plato.put(new Square(0, 0), new Rook("noir"));
+        plato.put(new Square(4, 7), new King("noir"));
         plato.put(new Square(0, 0), new Rook("blanc"));
-        plato.put(new Square(0, 0), new King("blanc"));
-
-
-        tab = new Square[TAILLE][TAILLE];
-        for (int i = 0; i< TAILLE; i++){
-            for(int j = 0; j< TAILLE; j++){
-                tab[i][j] = new Square(i, j);
-            }
-        }
+        plato.put(new Square(4, 0), new King("blanc"));
     }
 
-    public List<Square> DeplacementsPossible(IPiece piece, Square position){
-        List<Square> liste = new ArrayList<Square>();
-        for ( Square square : piece.mouvement(position) ){
+    public List<Square> DeplacementsPossible(Square position){
+
+        List<Square> liste = new ArrayList<>();
+        for ( Square square : plato.get(position).mouvement(position) ){
             if (square.x()< TAILLE && square.x()>=0 && square.y()< TAILLE && square.y()>=0){
                 liste.add(square);
             }
@@ -39,17 +31,22 @@ public class Plato {
         return liste;
     }
 
-    public String afficherMouvement(IPiece piece, Square square){
-        String mouvement = "";
+    public String afficherMouvement(Square square){
+        StringBuilder mouvement = new StringBuilder();
 
-        DeplacementsPossible(piece, square);
+        DeplacementsPossible(square);
 
         int a=1;
-        for (Square square1 : DeplacementsPossible(piece, square)){
-            mouvement+=a+")   X : "+square1.x() + " " +"       Y :"+ square1.y()+"\n";
+        for (Square square1 : DeplacementsPossible(square)){
+            mouvement.append(a);
+            mouvement.append(") X : ");
+            mouvement.append(square1.x());
+            mouvement.append(" - Y : ");
+            mouvement.append(square1.y());
+            mouvement.append("\n");
             a++;
         }
 
-        return mouvement;
+        return mouvement.toString();
     }
 }

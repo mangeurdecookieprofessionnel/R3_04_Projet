@@ -27,6 +27,6 @@ public class TestKing {
         list.add(new Square(4,4));
         list.add(new Square(4,5));
 
-        assertEquals(roi.mouvement(squareKing), list);
+        assertEquals(list,roi.mouvement(squareKing));
     }
 }

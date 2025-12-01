@@ -24,7 +24,7 @@ public class Rook implements IPiece {
     @Override
     public List<Square> mouvement(Square square) {
         List<Square> squares = new ArrayList<Square>();
-        for(int i=1; i<TAILLE-1; i++){
+        for(int i=1; i<TAILLE; i++){
             if(square.y()+i<TAILLE)
                 squares.add(new Square(square.x(), square.y()+i));//haut
             if(square.y()-i>=0)
