@@ -1,13 +1,12 @@
-package Appli;
+package Pieces;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+public class TestRook {
 
-public class TestSquare {
     @Test
     public void test(){
 
     }
-
 }
