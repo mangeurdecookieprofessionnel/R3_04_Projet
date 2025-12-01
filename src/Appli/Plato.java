@@ -1,17 +1,26 @@
 package Appli;
 
+
 import Pieces.King;
 import Pieces.Rook;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Plato {
+    private Map<Square, IPiece> plato;
     public Square[][]tab;
-    private final int TAILLE =8;
+    public static final int TAILLE =8;
 
-    //Constructeur pour créer un plateau
     public Plato(){
+        plato = new HashMap<Square, IPiece>();
+        plato.put(new Square(0, 0), new Rook("noir"));
+        plato.put(new Square(0, 0), new Rook("blanc"));
+        plato.put(new Square(0, 0), new King("blanc"));
+
+
         tab = new Square[TAILLE][TAILLE];
         for (int i = 0; i< TAILLE; i++){
             for(int j = 0; j< TAILLE; j++){
@@ -23,7 +32,7 @@ public class Plato {
     public List<Square> DeplacementsPossible(IPiece piece, Square position){
         List<Square> liste = new ArrayList<Square>();
         for ( Square square : piece.mouvement(position) ){
-            if (square.getX()< TAILLE && square.getX()>=0 && square.getY()< TAILLE && square.getY()>=0){
+            if (square.x()< TAILLE && square.x()>=0 && square.y()< TAILLE && square.y()>=0){
                 liste.add(square);
             }
         }
@@ -37,7 +46,7 @@ public class Plato {
 
         int a=1;
         for (Square square1 : DeplacementsPossible(piece, square)){
-            mouvement+=a+")   X : "+square1.getX() + " " +"       Y :"+ square1.getY()+"\n";
+            mouvement+=a+")   X : "+square1.x() + " " +"       Y :"+ square1.y()+"\n";
             a++;
         }
 

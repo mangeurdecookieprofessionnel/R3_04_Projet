@@ -17,12 +17,12 @@ public class Main{
 
         int a=1, b=1;
         for (Square square1 : p.DeplacementsPossible(roi, squareKing)){
-            System.out.println(a+")   X : "+square1.getX() + " " +"       Y :"+ square1.getY());
+            System.out.println(a+")   X : "+square1.x() + " " +"       Y :"+ square1.y());
             a++;
         }
         System.out.println("\n");
         for (Square square1 : p.DeplacementsPossible(tour, squareRook)){
-            System.out.println(b+")   X : "+square1.getX() + " " +"       Y :"+ square1.getY());
+            System.out.println(b+")   X : "+square1.x() + " " +"       Y :"+ square1.y());
             b++;
         }
     }

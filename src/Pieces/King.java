@@ -22,15 +22,15 @@ public class King implements IPiece {
 
     @Override
     public List<Square> mouvement(Square square) {
-        List<Square> squares = new ArrayList<Square>();
-        squares.add(new Square(square.getX()-1, square.getY()+1)); // Haut-Gauche
-        squares.add(new Square(square.getX(), square.getY()+1));   // Haut
-        squares.add(new Square(square.getX()+1, square.getY()+1)); // Haut-Droite
-        squares.add(new Square(square.getX()+1, square.getY()));   // Droite
-        squares.add(new Square(square.getX()+1, square.getY()-1)); // Bas-Droite
-        squares.add(new Square(square.getX(), square.getY()-1));   // Bas
-        squares.add(new Square(square.getX()-1, square.getY()-1)); // Bas-Gauche
-        squares.add(new Square(square.getX()-1, square.getY()));   // Gauche
+        List<Square> squares = new ArrayList<>();
+        squares.add(new Square(square.x()-1, square.y()+1)); // Haut-Gauche
+        squares.add(new Square(square.x(), square.y()+1));   // Haut
+        squares.add(new Square(square.x()+1, square.y()+1)); // Haut-Droite
+        squares.add(new Square(square.x()+1, square.y()));   // Droite
+        squares.add(new Square(square.x()+1, square.y()-1)); // Bas-Droite
+        squares.add(new Square(square.x(), square.y()-1));   // Bas
+        squares.add(new Square(square.x()-1, square.y()-1)); // Bas-Gauche
+        squares.add(new Square(square.x()-1, square.y()));   // Gauche
 
         return squares;
     }
@@ -41,7 +41,7 @@ public class King implements IPiece {
         int count=1;
         List<Square> squares = mouvement(square);
         for (Square square1 : squares) {
-            mouvements+=(count++)+")   X : "+square1.getX() + " " +"       Y :"+ square1.getY()+"\n";
+            mouvements+=(count++)+")   X : "+square1.x() + " " +"       Y :"+ square1.y()+"\n";
         }
         return mouvements;
     }
