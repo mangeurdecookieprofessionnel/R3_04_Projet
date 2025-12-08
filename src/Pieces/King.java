@@ -5,7 +5,10 @@ import Appli.Move;
 import Appli.Square;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import static Appli.Plato.TAILLE;
 
 public class King implements IPiece {
 
@@ -23,6 +26,7 @@ public class King implements IPiece {
     @Override
     public List<Square> mouvement(Square square) {
         List<Square> squares = new ArrayList<>();
+
         squares.add(new Square(square.x()-1, square.y()+1)); // Haut-Gauche
         squares.add(new Square(square.x(), square.y()+1));   // Haut
         squares.add(new Square(square.x()+1, square.y()+1)); // Haut-Droite
@@ -31,6 +35,16 @@ public class King implements IPiece {
         squares.add(new Square(square.x(), square.y()-1));   // Bas
         squares.add(new Square(square.x()-1, square.y()-1)); // Bas-Gauche
         squares.add(new Square(square.x()-1, square.y()));   // Gauche
+
+        Iterator<Square> iterator = squares.iterator();
+
+        while(iterator.hasNext()) {
+            Square s = iterator.next();
+            if(s.x()<0 || s.x()>=TAILLE ||  s.y()<0 || s.y()>=TAILLE) {
+                iterator.remove();
+            }
+        }
+
 
         return squares;
     }

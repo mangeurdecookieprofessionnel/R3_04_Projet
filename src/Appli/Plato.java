@@ -25,7 +25,9 @@ public class Plato {
         List<Square> liste = new ArrayList<>();
         for ( Square square : plato.get(position).mouvement(position) ){
             if (square.x()< TAILLE && square.x()>=0 && square.y()< TAILLE && square.y()>=0){
-                liste.add(square);
+                if(plato.containsKey(square)) {
+                    liste.add(square);
+                }
             }
         }
         return liste;
