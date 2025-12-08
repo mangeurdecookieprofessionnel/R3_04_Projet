@@ -14,7 +14,7 @@ public class TestKing {
     @Test
     public void test(){
 
-        IPiece roi = new King("Blanc");
+        IPiece roi = new King(Couleur.WHITE);
         Square squareKing = new Square(5,5);
 
         ArrayList<Square> list = new ArrayList<>();

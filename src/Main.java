@@ -1,6 +1,7 @@
 import Appli.IPiece;
 import Appli.Plato;
 import Appli.Square;
+import Pieces.Couleur;
 import Pieces.King;
 import Pieces.Rook;
 
@@ -8,8 +9,8 @@ public class Main{
     public static void main(String[] args) {
 
         Plato p = new Plato();
-        IPiece roi = new King("Blanc");
-        IPiece tour = new Rook("Blanc");
+        IPiece roi = new King(Couleur.WHITE);
+        IPiece tour = new Rook(Couleur.BLACK);
         Square squareKing = new Square(4,0);
         Square squareRook = new Square(0,0);
 
