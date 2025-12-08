@@ -13,7 +13,7 @@ public class TestRook {
     @Test
     public void test(){
 
-        IPiece tour = new Rook("Blanc");
+        IPiece tour = new Rook(Couleur.WHITE);
         Square squareRook = new Square(5,5);
 
         ArrayList<Square> list = new ArrayList<>();

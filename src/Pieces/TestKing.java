@@ -14,7 +14,7 @@ public class TestKing {
     @Test
     public void testmid(){
 
-        IPiece roi = new King("Blanc");
+        IPiece roi = new King(Couleur.WHITE);
         Square squareKing = new Square(5,5);
 
         ArrayList<Square> list = new ArrayList<>();
@@ -31,7 +31,7 @@ public class TestKing {
     }
     @Test
     public void testside(){
-        IPiece roi = new King("Blanc");
+        IPiece roi = new King(Couleur.WHITE);
         Square squareKing = new Square(0,5);
 
         ArrayList<Square> list = new ArrayList<>();
@@ -45,7 +45,7 @@ public class TestKing {
     }
     @Test
     public void testcorner(){
-        IPiece roi = new King("Blanc");
+        IPiece roi = new King(Couleur.WHITE);
         Square squareKing = new Square(7,7);
         ArrayList<Square> list = new ArrayList<>();
         list.add(new Square(7,6));

@@ -1,6 +1,7 @@
 package Appli;
 
 
+import Pieces.Couleur;
 import Pieces.King;
 import Pieces.Rook;
 
@@ -15,9 +16,9 @@ public class Plato {
 
     public Plato(){
         plato = new HashMap<Square, IPiece>();
-        plato.put(new Square(4, 7), new King("noir"));
-        plato.put(new Square(0, 0), new Rook("blanc"));
-        plato.put(new Square(4, 0), new King("blanc"));
+        plato.put(new Square(4, 7), new King(Couleur.BLACK));
+        plato.put(new Square(0, 0), new Rook(Couleur.WHITE));
+        plato.put(new Square(4, 0), new King(Couleur.WHITE));
     }
 
     public List<Square> DeplacementsPossible(Square position){

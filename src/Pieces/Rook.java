@@ -10,14 +10,14 @@ import java.util.List;
 import static Appli.Plato.TAILLE;
 
 public class Rook implements IPiece {
-    private String couleur;
+    private Couleur couleur;
 
-    public Rook(String couleur) {
+    public Rook(Couleur couleur) {
         this.couleur = couleur;
     }
 
     @Override
-    public String getCouleur() {
+    public Couleur getCouleur() {
         return couleur;
     }
 

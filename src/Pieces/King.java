@@ -12,14 +12,14 @@ import static Appli.Plato.TAILLE;
 
 public class King implements IPiece {
 
-    private String couleur;
+    private Couleur couleur;
 
-    public King(String couleur) {
+    public King(Couleur couleur) {
         this.couleur = couleur;
     }
 
     @Override
-    public String getCouleur() {
+    public Couleur getCouleur() {
         return couleur;
     }
 
