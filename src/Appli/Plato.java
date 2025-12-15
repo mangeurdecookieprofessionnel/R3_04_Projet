@@ -19,16 +19,15 @@ public class Plato {
         plato.put(new Square(4, 7), new King(Couleur.BLACK));
         plato.put(new Square(0, 0), new Rook(Couleur.WHITE));
         plato.put(new Square(4, 0), new King(Couleur.WHITE));
+
     }
 
     public List<Square> DeplacementsPossible(Square position){
 
         List<Square> liste = new ArrayList<>();
         for ( Square square : plato.get(position).mouvement(position) ){
-            if (square.x()< TAILLE && square.x()>=0 && square.y()< TAILLE && square.y()>=0){
-                if(plato.containsKey(square)) {
-                    liste.add(square);
-                }
+            if(!plato.containsKey(square)||plato.get(square).getCouleur()!=plato.get(position).getCouleur()) {
+                liste.add(square);
             }
         }
         return liste;

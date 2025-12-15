@@ -44,8 +44,6 @@ public class King implements IPiece {
                 iterator.remove();
             }
         }
-
-
         return squares;
     }
 
