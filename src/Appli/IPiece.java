@@ -12,4 +12,6 @@ public interface IPiece {
 
     public String afficherMouvementPiece(Square square);
 
+    public Boolean prise(Square square);
+
 }

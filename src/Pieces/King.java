@@ -60,5 +60,10 @@ public class King implements IPiece {
         return mouvements;
     }
 
+    @Override
+    public Boolean prise(Square square) {
+        return false;
+    }
+
 
 }
