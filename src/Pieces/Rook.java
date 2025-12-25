@@ -22,29 +22,44 @@ public class Rook implements IPiece {
     }
 
     @Override
-    public List<Square> mouvement(Square square) {
-        List<Square> squares = new ArrayList<Square>();
-        for(int i=1; i<TAILLE; i++){
-            if(square.y()+i<TAILLE)
-                squares.add(new Square(square.x(), square.y()+i));//haut
-            if(square.y()-i>=0)
-                squares.add(new Square(square.x(), square.y()-i));//bas
-            if(square.x()+i<TAILLE)
-                squares.add(new Square(square.x()+i, square.y()));//droite
-            if(square.x()-i>=0)
-                squares.add(new Square(square.x()-i, square.y()));//gauche
+    public List<Square> mouvement(Square square, List<Square> occupee) {
+        List<Square> squares = new ArrayList<>();
+
+        for (int i = 1; square.y() + i < TAILLE; i++) {
+            Square s = new Square(square.x(), square.y() + i);
+            if (occupee.contains(s)) {
+                break;
+            }
+            squares.add(s);
         }
+
+        for (int i = 1; square.y() - i >= 0; i++) {
+            Square s = new Square(square.x(), square.y() - i);
+            if (occupee.contains(s)) {
+                break;
+            }
+            squares.add(s);
+        }
+
+        for (int i = 1; square.x() + i < TAILLE; i++) {
+            Square s = new Square(square.x() + i, square.y());
+            if (occupee.contains(s)) {
+                break;
+            }
+            squares.add(s);
+        }
+
+        for (int i = 1; square.x() - i >= 0; i++) {
+            Square s = new Square(square.x() - i, square.y());
+            if (occupee.contains(s)) {
+                break;
+            }
+            squares.add(s);
+        }
+
         return squares;
     }
 
-    @Override
-    public String afficherMouvementPiece(Square square) {
-        String mouvements="";
-        int count=1;
-        List<Square> squares = mouvement(square);
-        for (Square square1 : squares) {
-            mouvements+=(count++)+")   X : "+square1.x() + " " +"       Y :"+ square1.y()+"\n";
-        }
-        return mouvements;
-    }
+
+
 }

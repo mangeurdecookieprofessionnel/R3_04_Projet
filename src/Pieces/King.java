@@ -24,7 +24,7 @@ public class King implements IPiece {
     }
 
     @Override
-    public List<Square> mouvement(Square square) {
+    public List<Square> mouvement(Square square, List<Square> ocuppee) {
         List<Square> squares = new ArrayList<>();
 
         squares.add(new Square(square.x()-1, square.y()+1)); // Haut-Gauche
@@ -49,16 +49,7 @@ public class King implements IPiece {
         return squares;
     }
 
-    @Override
-    public String afficherMouvementPiece(Square square) {
-        String mouvements="";
-        int count=1;
-        List<Square> squares = mouvement(square);
-        for (Square square1 : squares) {
-            mouvements+=(count++)+")   X : "+square1.x() + " " +"       Y :"+ square1.y()+"\n";
-        }
-        return mouvements;
-    }
+
 
 
 }

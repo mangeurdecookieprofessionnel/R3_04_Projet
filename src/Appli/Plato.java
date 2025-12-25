@@ -23,16 +23,19 @@ public class Plato {
 
     public List<Square> DeplacementsPossible(Square position){
 
-        List<Square> liste = new ArrayList<>();
-        for ( Square square : plato.get(position).mouvement(position) ){
-            if (square.x()< TAILLE && square.x()>=0 && square.y()< TAILLE && square.y()>=0){
-                if(plato.containsKey(square)) {
-                    liste.add(square);
-                }
-            }
-        }
-        return liste;
+        return plato.get(position).mouvement(position, squaresOccupee());
     }
+
+    public List<Square> squaresOccupee() {
+        List<Square> squares = new ArrayList<>();
+
+        for (Square square : plato.keySet()) {
+            squares.add(square);
+        }
+
+        return squares;
+    }
+
 
     public String afficherMouvement(Square square){
         StringBuilder mouvement = new StringBuilder();
