@@ -1,8 +1,8 @@
 package Pieces;
 
 import Appli.IPiece;
-import Appli.Move;
 import Appli.Square;
+import Modele.Couleur;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,6 +27,34 @@ public class King implements IPiece {
     public List<Square> mouvement(Square square, List<Square> ocuppee) {
         List<Square> squares = new ArrayList<>();
 
+        squares.add(new Square(square.x()-1, square.y()+1));
+        squares.add(new Square(square.x(),   square.y()+1));
+        squares.add(new Square(square.x()+1, square.y()+1));
+        squares.add(new Square(square.x()+1, square.y()));
+        squares.add(new Square(square.x()+1, square.y()-1));
+        squares.add(new Square(square.x(),   square.y()-1));
+        squares.add(new Square(square.x()-1, square.y()-1));
+        squares.add(new Square(square.x()-1, square.y()));
+
+        Iterator<Square> iterator = squares.iterator();
+
+        while (iterator.hasNext()) {
+            Square s = iterator.next();
+
+            if (s.x() < 0 || s.x() >= TAILLE || s.y() < 0 || s.y() >= TAILLE
+                    || ocuppee.contains(s)) {
+                iterator.remove();
+            }
+        }
+
+        return squares;
+    }
+
+
+    @Override
+    public List<Square> mouvement1(Square square) {
+        List<Square> squares = new ArrayList<>();
+
         squares.add(new Square(square.x()-1, square.y()+1)); // Haut-Gauche
         squares.add(new Square(square.x(), square.y()+1));   // Haut
         squares.add(new Square(square.x()+1, square.y()+1)); // Haut-Droite
@@ -48,8 +76,6 @@ public class King implements IPiece {
 
         return squares;
     }
-
-
 
 
 }

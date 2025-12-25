@@ -1,8 +1,8 @@
 package Pieces;
 
 import Appli.IPiece;
-import Appli.Move;
 import Appli.Square;
+import Modele.Couleur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +60,30 @@ public class Rook implements IPiece {
         return squares;
     }
 
+    public List<Square> mouvement1(Square square) {
+        List<Square> squares = new ArrayList<>();
 
+        for (int i = 1; square.y() + i < TAILLE; i++) {
+            Square s = new Square(square.x(), square.y() + i);
+            squares.add(s);
+        }
+
+        for (int i = 1; square.y() - i >= 0; i++) {
+            Square s = new Square(square.x(), square.y() - i);
+            squares.add(s);
+        }
+
+        for (int i = 1; square.x() + i < TAILLE; i++) {
+            Square s = new Square(square.x() + i, square.y());
+            squares.add(s);
+        }
+
+        for (int i = 1; square.x() - i >= 0; i++) {
+            Square s = new Square(square.x() - i, square.y());
+            squares.add(s);
+        }
+
+        return squares;
+    }
 
 }

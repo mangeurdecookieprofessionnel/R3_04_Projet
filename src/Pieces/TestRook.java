@@ -2,6 +2,7 @@ package Pieces;
 
 import Appli.IPiece;
 import Appli.Square;
+import Modele.Couleur;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

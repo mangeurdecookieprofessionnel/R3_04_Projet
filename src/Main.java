@@ -1,7 +1,7 @@
 import Appli.IPiece;
 import Appli.Plato;
 import Appli.Square;
-import Pieces.Couleur;
+import Modele.Couleur;
 import Pieces.King;
 import Pieces.Rook;
 

@@ -1,6 +1,6 @@
 package Appli;
 
-import Pieces.Couleur;
+import Modele.Couleur;
 
 import java.util.List;
 
@@ -10,5 +10,6 @@ public interface IPiece {
 
     public List<Square> mouvement(Square square, List<Square> ocuppee);
 
+    public List<Square> mouvement1(Square square);
 
 }

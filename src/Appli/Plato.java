@@ -1,7 +1,7 @@
 package Appli;
 
 
-import Pieces.Couleur;
+import Modele.Couleur;
 import Pieces.King;
 import Pieces.Rook;
 
@@ -16,7 +16,7 @@ public class Plato {
 
     public Plato(){
         plato = new HashMap<Square, IPiece>();
-        plato.put(new Square(4, 7), new King(Couleur.BLACK));
+        plato.put(new Square(0, 7), new King(Couleur.BLACK));
         plato.put(new Square(0, 0), new Rook(Couleur.WHITE));
         plato.put(new Square(4, 0), new King(Couleur.WHITE));
     }
@@ -33,6 +33,17 @@ public class Plato {
             squares.add(square);
         }
 
+        return squares;
+    }
+
+    public List<Square> manger(Square position, Couleur couleur) {
+        List<Square> squares = new ArrayList<>();
+
+        for (Square square : plato.get(position).mouvement1(position)) {
+            if (plato.containsKey(square) && plato.get(square).getCouleur() == couleur) {
+                squares.add(square);
+            }
+        }
         return squares;
     }
 
