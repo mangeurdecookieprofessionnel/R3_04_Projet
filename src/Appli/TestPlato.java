@@ -28,6 +28,7 @@ public class TestPlato {
         list.add(new Square(1, 0));
         list.add(new Square(2, 0));
         list.add(new Square(3, 0));
+        list.add(new Square(0, 7));
 
         Set<Square> mouvement = new HashSet<>(plato.DeplacementsPossible(new Square(0,0)));
 
@@ -36,7 +37,7 @@ public class TestPlato {
 
         Set<Square> list2 = new HashSet<>();
         list2.add(new Square(0, 7));
-        Set<Square> manger = new HashSet<>(plato.manger(new Square(0,0), Couleur.BLACK));
+        Set<Square> manger = new HashSet<>(plato.manger(new Square(0,0)));
         assertEquals(manger, list2);
 
     }

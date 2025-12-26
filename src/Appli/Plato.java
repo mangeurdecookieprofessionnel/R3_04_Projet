@@ -13,17 +13,52 @@ import java.util.Map;
 public class Plato {
     private Map<Square, IPiece> plato;
     public static final int TAILLE =8;
+    Regle regle;
 
     public Plato(){
         plato = new HashMap<Square, IPiece>();
         plato.put(new Square(0, 7), new King(Couleur.BLACK));
         plato.put(new Square(0, 0), new Rook(Couleur.WHITE));
         plato.put(new Square(4, 0), new King(Couleur.WHITE));
+        regle = new Regle();
     }
 
-    public List<Square> DeplacementsPossible(Square position){
+    public String afficherPlato() {
+        StringBuilder sb = new StringBuilder();
 
-        return plato.get(position).mouvement(position, squaresOccupee());
+        for (int y = TAILLE - 1; y >= 0; y--) {
+            for (int x = 0; x < TAILLE; x++) {
+                Square square = new Square(x, y);
+
+                if (plato.containsKey(square)) {
+                    IPiece piece = plato.get(square);
+
+                    if (piece instanceof Pieces.Rook) {
+                        sb.append("r");
+                    } else if (piece instanceof Pieces.King) {
+                        sb.append("k");
+                    } else {
+                        sb.append("?");
+                    }
+                } else {
+                    sb.append(".");
+                }
+
+                sb.append(" ");
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+
+
+
+    public List<Square> DeplacementsPossible(Square position){
+        List<Square> list = new ArrayList<>(plato.get(position).mouvement(position, squaresOccupee()));
+        list.addAll(manger(position));
+        return list;
     }
 
     public List<Square> squaresOccupee() {
@@ -36,11 +71,11 @@ public class Plato {
         return squares;
     }
 
-    public List<Square> manger(Square position, Couleur couleur) {
+    public List<Square> manger(Square position) {
         List<Square> squares = new ArrayList<>();
 
         for (Square square : plato.get(position).mouvement1(position)) {
-            if (plato.containsKey(square) && plato.get(square).getCouleur() == couleur) {
+            if (plato.containsKey(square) && plato.get(square).getCouleur() != plato.get(position).getCouleur()) {
                 squares.add(square);
             }
         }
@@ -65,5 +100,20 @@ public class Plato {
         }
 
         return mouvement.toString();
+    }
+
+    public void jouerUnCoup(Square positionInitiale, Square positionFinale){
+        if (plato.get(positionInitiale).getCouleur() == regle.getTour()){
+            if (DeplacementsPossible(positionInitiale).contains(positionFinale)){
+                if (plato.get(positionFinale)!=null){
+                    plato.put(positionFinale, plato.get(positionInitiale));
+                    plato.remove(positionInitiale);
+                }
+                else {
+                    plato.put(positionFinale, plato.get(positionInitiale));
+                    plato.remove(positionInitiale);
+                }
+            }
+        }
     }
 }

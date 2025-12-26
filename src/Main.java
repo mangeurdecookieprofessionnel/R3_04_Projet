@@ -9,23 +9,10 @@ public class Main{
     public static void main(String[] args) {
 
         Plato p = new Plato();
-        IPiece roi = new King(Couleur.WHITE);
-        IPiece tour = new Rook(Couleur.BLACK);
-        Square squareKing = new Square(4,0);
-        Square squareRook = new Square(0,0);
-
-        p.DeplacementsPossible(squareKing);
-
-        int a=1, b=1;
-        for (Square square1 : p.DeplacementsPossible(squareKing)){
-            System.out.println(a+")X : "+square1.x() + " / Y :"+ square1.y());
-            a++;
-        }
-        System.out.println("\n");
-        for (Square square1 : p.DeplacementsPossible(squareRook)){
-            System.out.println(b+")X : "+square1.x() + " / Y :"+ square1.y());
-            b++;
-        }
+        System.out.println(p.afficherMouvement(new Square(0,0)));
+        System.out.println(p.afficherPlato());
+        p.jouerUnCoup(new Square(0,0), new Square(0,3));
+        System.out.println(p.afficherPlato());
     }
 
 }

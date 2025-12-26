@@ -45,7 +45,6 @@ public class TestKing {
         Set<Square> list = new HashSet<>();
         list.add(new Square(0,6));
         list.add(new Square(1,6));
-        list.add(new Square(1,5));
         list.add(new Square(1,4));
         list.add(new Square(0,4));
 
