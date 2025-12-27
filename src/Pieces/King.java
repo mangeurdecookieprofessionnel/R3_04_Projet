@@ -11,11 +11,18 @@ import java.util.List;
 import static Appli.Plato.TAILLE;
 
 public class King implements IPiece {
-
     private Couleur couleur;
+    private char lettre;
 
     public King(Couleur couleur) {
+
         this.couleur = couleur;
+        if (getCouleur() == Couleur.WHITE) {
+            lettre = 'K';
+        }
+        else {
+            lettre = 'k';
+        }
     }
 
     @Override
@@ -75,6 +82,11 @@ public class King implements IPiece {
 
 
         return squares;
+    }
+
+    @Override
+    public char getLettre() {
+        return lettre;
     }
 
 

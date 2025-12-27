@@ -12,4 +12,5 @@ public interface IPiece {
 
     public List<Square> mouvement1(Square square);
 
+    public char getLettre();
 }

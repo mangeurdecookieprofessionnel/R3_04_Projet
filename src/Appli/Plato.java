@@ -14,6 +14,7 @@ public class Plato {
     private Map<Square, IPiece> plato;
     public static final int TAILLE =8;
     Regle regle;
+    private String prise;
 
     public Plato(){
         plato = new HashMap<Square, IPiece>();
@@ -21,36 +22,44 @@ public class Plato {
         plato.put(new Square(0, 0), new Rook(Couleur.WHITE));
         plato.put(new Square(4, 0), new King(Couleur.WHITE));
         regle = new Regle();
+        prise = "-";
     }
 
     public String afficherPlato() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder fen = new StringBuilder();
 
         for (int y = TAILLE - 1; y >= 0; y--) {
+            int vide = 0;
+
             for (int x = 0; x < TAILLE; x++) {
-                Square square = new Square(x, y);
+                Square s = new Square(x, y);
 
-                if (plato.containsKey(square)) {
-                    IPiece piece = plato.get(square);
-
-                    if (piece instanceof Pieces.Rook) {
-                        sb.append("r");
-                    } else if (piece instanceof Pieces.King) {
-                        sb.append("k");
-                    } else {
-                        sb.append("?");
-                    }
+                if (!plato.containsKey(s)) {
+                    vide++;
                 } else {
-                    sb.append(".");
+                    if (vide > 0) {
+                        fen.append(vide);
+                        vide = 0;
+                    }
+                    fen.append(plato.get(s).getLettre());
                 }
-
-                sb.append(" ");
             }
-            sb.append("\n");
+
+            if (vide > 0) {
+                fen.append(vide);
+            }
+
+            if (y > 0) {
+                fen.append('/');
+            }
         }
 
-        return sb.toString();
+        fen.append(regle.getTour() == Couleur.WHITE ? " w " : " b ");
+        fen.append("- "+prise+" "+regle.getNbDemieCoup()+" "+regle.getNbCoup());
+
+        return fen.toString();
     }
+
 
 
 
@@ -108,12 +117,24 @@ public class Plato {
                 if (plato.get(positionFinale)!=null){
                     plato.put(positionFinale, plato.get(positionInitiale));
                     plato.remove(positionInitiale);
+                    prise = "aa";
+                    regle.resetNbDemiecoup();
+                    regle.incNbcoup();
+
                 }
                 else {
                     plato.put(positionFinale, plato.get(positionInitiale));
                     plato.remove(positionInitiale);
+                    prise = "-";
+                    regle.incNbcoup();
+                    regle.incNbdemieCoup();
                 }
             }
         }
+        regle.changeTour();
+    }
+
+    public boolean partieFini(){
+        return regle.statutPartie();
     }
 }

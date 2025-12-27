@@ -11,9 +11,17 @@ import static Appli.Plato.TAILLE;
 
 public class Rook implements IPiece {
     private Couleur couleur;
+    private char lettre;
 
     public Rook(Couleur couleur) {
+
         this.couleur = couleur;
+        if (getCouleur() == Couleur.WHITE) {
+            lettre = 'R';
+        }
+        else {
+            lettre = 'r';
+        }
     }
 
     @Override
@@ -84,6 +92,11 @@ public class Rook implements IPiece {
         }
 
         return squares;
+    }
+
+    @Override
+    public char getLettre() {
+        return lettre;
     }
 
 }
