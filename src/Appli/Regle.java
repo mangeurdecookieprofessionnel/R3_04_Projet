@@ -5,22 +5,16 @@ import Modele.Couleur;
 public class Regle {
     private int nbCoup;
     private int nbDemieCoup;
-    private boolean fini;
     private Couleur tour;
 
     public Regle() {
         this.nbCoup = 0;
         this.nbDemieCoup = 0;
-        this.fini = false;
         this.tour = Couleur.WHITE;
     }
 
     public int getNbCoup() {
         return (nbCoup / 2) + 1;
-    }
-
-    public boolean statutPartie(){
-        return fini;
     }
 
     public Couleur getTour() {

@@ -1,30 +1,27 @@
 package Appli;
 
-
 import Modele.Couleur;
-import Pieces.King;
-import Pieces.Rook;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Factory.PieceFactory;
+
 public class Plato {
     private Map<Square, IPiece> plato;
     public static final int TAILLE =8;
     Regle regle;
-    private String prise;
+    private List<Move> moves;
 
     public Plato(){
         plato = new HashMap<Square, IPiece>();
-        plato.put(new Square(0, 7), new King(Couleur.BLACK));
-        plato.put(new Square(0, 0), new Rook(Couleur.WHITE));
-        plato.put(new Square(4, 0), new King(Couleur.WHITE));
+        plato = PieceFactory.Begin();
         regle = new Regle();
-        prise = "-";
     }
 
+    /*
     public String afficherPlato() {
         StringBuilder fen = new StringBuilder();
 
@@ -59,17 +56,23 @@ public class Plato {
 
         return fen.toString();
     }
-
-
-
-
-
+    */
+    
+    /**
+     * Retourne une liste de tous les déplacements possibles (y compris les pièces mangeables)
+     * @param position La position de la pièce qu'on souhaite déplacer
+     * @return Liste de coordonnées (square)
+     */
     public List<Square> DeplacementsPossible(Square position){
-        List<Square> list = new ArrayList<>(plato.get(position).mouvement(position, squaresOccupee()));
+        List<Square> list = new ArrayList<>(plato.get(position).mouvement(position, this.squaresOccupee()));
         list.addAll(manger(position));
         return list;
     }
 
+    /**
+     * Retourne une liste de toutes les coordonnées occupées par une pièce quelconque (blanche et noire)
+     * @return Liste de coordonnées (square)
+     */
     public List<Square> squaresOccupee() {
         List<Square> squares = new ArrayList<>();
 
@@ -80,18 +83,24 @@ public class Plato {
         return squares;
     }
 
+    /**
+     * Retourne une liste des pièces qu'un pion peut "manger"/"tuer"
+     * @param position La position de la pièce qu'on souhaite déplacer
+     * @return Liste de coordonnées (square)
+     */
     public List<Square> manger(Square position) {
         List<Square> squares = new ArrayList<>();
 
-        for (Square square : plato.get(position).mouvement1(position)) {
+        for (Square square : plato.get(position).mouvement(position, squaresOccupee())) {
             if (plato.containsKey(square) && plato.get(square).getCouleur() != plato.get(position).getCouleur()) {
                 squares.add(square);
             }
         }
+        
         return squares;
     }
 
-
+    /*
     public String afficherMouvement(Square square){
         StringBuilder mouvement = new StringBuilder();
 
@@ -110,31 +119,34 @@ public class Plato {
 
         return mouvement.toString();
     }
-
-    public void jouerUnCoup(Square positionInitiale, Square positionFinale){
-        if (plato.get(positionInitiale).getCouleur() == regle.getTour()){
-            if (DeplacementsPossible(positionInitiale).contains(positionFinale)){
-                if (plato.get(positionFinale)!=null){
-                    plato.put(positionFinale, plato.get(positionInitiale));
-                    plato.remove(positionInitiale);
-                    prise = "aa";
-                    regle.resetNbDemiecoup();
-                    regle.incNbcoup();
-
-                }
-                else {
-                    plato.put(positionFinale, plato.get(positionInitiale));
-                    plato.remove(positionInitiale);
-                    prise = "-";
-                    regle.incNbcoup();
-                    regle.incNbdemieCoup();
+    */
+    
+    /**
+     * Permet de jouer un coup
+     * @param move Le déplacement voulu
+     */
+    public void jouerUnCoup(Move move){
+    	if (plato.containsKey(move.getDepart())) {
+    		if (plato.get(move.getDepart()).getCouleur() == regle.getTour()){
+                if (DeplacementsPossible(move.getDepart()).contains(move.getArrivee())){
+                    if (plato.get(move.getArrivee())!= null){
+                    	plato.remove(move.getArrivee());
+                        plato.put(move.getArrivee(), plato.get(move.getDepart()));
+                        plato.remove(move.getDepart());
+                        regle.resetNbDemiecoup();
+                        regle.incNbcoup();
+                        moves.add(move);
+                    }
+                    else {
+                        plato.put(move.getArrivee(), plato.get(move.getDepart()));
+                        plato.remove(move.getDepart());
+                        regle.incNbcoup();
+                        regle.incNbdemieCoup();
+                        moves.add(move);
+                    }
                 }
             }
-        }
-        regle.changeTour();
-    }
-
-    public boolean partieFini(){
-        return regle.statutPartie();
+            regle.changeTour();
+    	}
     }
 }

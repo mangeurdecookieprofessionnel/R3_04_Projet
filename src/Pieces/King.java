@@ -15,19 +15,23 @@ public class King implements IPiece {
     private char lettre;
 
     public King(Couleur couleur) {
-
         this.couleur = couleur;
         if (getCouleur() == Couleur.WHITE) {
-            lettre = 'K';
+            this.lettre = 'K';
         }
         else {
-            lettre = 'k';
+            this.lettre = 'k';
         }
     }
 
     @Override
     public Couleur getCouleur() {
         return couleur;
+    }
+    
+    @Override
+    public char getLettre() {
+        return lettre;
     }
 
     @Override
@@ -44,50 +48,14 @@ public class King implements IPiece {
         squares.add(new Square(square.x()-1, square.y()));
 
         Iterator<Square> iterator = squares.iterator();
-
         while (iterator.hasNext()) {
             Square s = iterator.next();
-
-            if (s.x() < 0 || s.x() >= TAILLE || s.y() < 0 || s.y() >= TAILLE
-                    || ocuppee.contains(s)) {
+            if (s.x() < 0 || s.x() >= TAILLE || s.y() < 0 || s.y() >= TAILLE 
+            		|| ocuppee.contains(s)) {
                 iterator.remove();
             }
         }
-
+        
         return squares;
     }
-
-
-    @Override
-    public List<Square> mouvement1(Square square) {
-        List<Square> squares = new ArrayList<>();
-
-        squares.add(new Square(square.x()-1, square.y()+1)); // Haut-Gauche
-        squares.add(new Square(square.x(), square.y()+1));   // Haut
-        squares.add(new Square(square.x()+1, square.y()+1)); // Haut-Droite
-        squares.add(new Square(square.x()+1, square.y()));   // Droite
-        squares.add(new Square(square.x()+1, square.y()-1)); // Bas-Droite
-        squares.add(new Square(square.x(), square.y()-1));   // Bas
-        squares.add(new Square(square.x()-1, square.y()-1)); // Bas-Gauche
-        squares.add(new Square(square.x()-1, square.y()));   // Gauche
-
-        Iterator<Square> iterator = squares.iterator();
-
-        while(iterator.hasNext()) {
-            Square s = iterator.next();
-            if(s.x()<0 || s.x()>=TAILLE ||  s.y()<0 || s.y()>=TAILLE) {
-                iterator.remove();
-            }
-        }
-
-
-        return squares;
-    }
-
-    @Override
-    public char getLettre() {
-        return lettre;
-    }
-
-
 }
