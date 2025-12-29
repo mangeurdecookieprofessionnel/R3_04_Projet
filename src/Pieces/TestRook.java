@@ -35,13 +35,8 @@ public class TestRook {
         list.add(new Square(5,1));
         list.add(new Square(5,0));
         
-        // Ajout d'une pièce (obstacle)
-        List<Square> occupee = new ArrayList<>();
-        occupee.add(new Square(1,5));
-        // [1;5] => Impossible => [O;5] => Impossible
-        
         // Création de la liste mouvement via la méthode testée
-        Set<Square> mouvement = new HashSet<>(tour.mouvement(squareRook, occupee));
+        Set<Square> mouvement = new HashSet<>(tour.mouvement(squareRook));
 
         // Comparaison des deux listes
         assertEquals(list, mouvement);

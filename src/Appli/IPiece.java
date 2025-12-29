@@ -16,12 +16,12 @@ public interface IPiece {
      * @return char Caractère représentant la pièce
      */
     public char getLettre();
-
+    
     /**
-     * Retourne la liste des mouvements possibles dans le plateau de la pièce
+     * Retourne les trajectoires possibles (sans se soucier des obstacles)
+     * Une trajectoire est une liste ordonnée de cases (ex: vers le Nord).
      * @param square Position de la pièce
-     * @param ocuppee List des coordonnées occupées par une pièce quelconque
-     * @return
+     * @return List<List<Square>> Liste de listes de trajectoires possibles.
      */
-    public List<Square> mouvement(Square square, List<Square> ocuppee);
+    public List<List<Square>> mouvement(Square square);
 }

@@ -1,8 +1,5 @@
 package Appli;
 
-import Modele.Couleur;
-import Pieces.King;
-import Pieces.Rook;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -78,5 +75,10 @@ public class TestPlato {
         
         // Le roi noir prend la tour
         plato.jouerUnCoup(new Move(new Square(4, 7), new Square(3, 6)));
+        
+        // Vérification 
+        // assertEquals(plato.getPlato().size(), 2);
+        
+        System.out.println(plato.getPlato().size());
     }
 }

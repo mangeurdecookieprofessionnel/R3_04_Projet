@@ -35,27 +35,22 @@ public class King implements IPiece {
     }
 
     @Override
-    public List<Square> mouvement(Square square, List<Square> ocuppee) {
-        List<Square> squares = new ArrayList<>();
+    public List<List<Square>> mouvement(Square square) {
+        List<List<Square>> trajectoires = new ArrayList<>();
+        
+        int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-        squares.add(new Square(square.x()-1, square.y()+1));
-        squares.add(new Square(square.x(),   square.y()+1));
-        squares.add(new Square(square.x()+1, square.y()+1));
-        squares.add(new Square(square.x()+1, square.y()));
-        squares.add(new Square(square.x()+1, square.y()-1));
-        squares.add(new Square(square.x(),   square.y()-1));
-        squares.add(new Square(square.x()-1, square.y()-1));
-        squares.add(new Square(square.x()-1, square.y()));
+        for (int i = 0; i < 8; i++) {
+            int nx = square.x() + dx[i];
+            int ny = square.y() + dy[i];
 
-        Iterator<Square> iterator = squares.iterator();
-        while (iterator.hasNext()) {
-            Square s = iterator.next();
-            if (s.x() < 0 || s.x() >= TAILLE || s.y() < 0 || s.y() >= TAILLE 
-            		|| ocuppee.contains(s)) {
-                iterator.remove();
+            if (nx >= 0 && nx < TAILLE && ny >= 0 && ny < TAILLE) {
+                List<Square> path = new ArrayList<>();
+                path.add(new Square(nx, ny));
+                trajectoires.add(path);
             }
         }
-        
-        return squares;
+        return trajectoires;
     }
 }
