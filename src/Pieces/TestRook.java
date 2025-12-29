@@ -33,12 +33,14 @@ public class TestRook {
         list.add(new Square(5,2));
         list.add(new Square(2,5));
         list.add(new Square(5,1));
+        list.add(new Square(1,5));
         list.add(new Square(5,0));
+        list.add(new Square(0,5));
         
         // Création de la liste mouvement via la méthode testée
-        Set<Square> mouvement = new HashSet<>(tour.mouvement(squareRook));
+        Set<Square> mouvements = tour.aplatir(tour.mouvement(squareRook));
 
         // Comparaison des deux listes
-        assertEquals(list, mouvement);
+        assertEquals(list,mouvements);
     }
 }

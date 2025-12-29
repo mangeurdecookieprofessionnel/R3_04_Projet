@@ -3,6 +3,7 @@ package Appli;
 import Modele.Couleur;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IPiece {
 	/**
@@ -16,6 +17,13 @@ public interface IPiece {
      * @return char Caractère représentant la pièce
      */
     public char getLettre();
+    
+    /**
+     * Retourne une liste "aplatie" de l'ensemble des mouvements possibles
+     * @param trajectoires Liste de listes des trajectoires
+     * @return Set<Square> HashSet des mouvements possibles
+     */
+    public Set<Square> aplatir(List<List<Square>> trajectoires);
     
     /**
      * Retourne les trajectoires possibles (sans se soucier des obstacles)

@@ -4,12 +4,8 @@ import Appli.IPiece;
 import Appli.Square;
 import Modele.Couleur;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestKing {
@@ -23,20 +19,20 @@ public class TestKing {
 
         // Liste des mouvements possibles
         Set<Square> list = new HashSet<>();
-        list.add(new Square(4,6));
-        list.add(new Square(5,6));
-        list.add(new Square(6,6));
-        list.add(new Square(6,5));
-        list.add(new Square(6,4));
-        list.add(new Square(5,4));
         list.add(new Square(4,4));
         list.add(new Square(4,5));
+        list.add(new Square(4,6));
+        list.add(new Square(5,4));
+        list.add(new Square(5,6));
+        list.add(new Square(6,4));
+        list.add(new Square(6,5));
+        list.add(new Square(6,6));
         
         // Création de la liste mouvement via la méthode testée
-        Set<Square> mouvement = new HashSet<>(roi.mouvement(squareKing));
+        Set<Square> mouvements = roi.aplatir(roi.mouvement(squareKing));
 
         // Comparaison des deux listes
-        assertEquals(list,mouvement);
+        assertEquals(list,mouvements);
     }
     
     @Test
@@ -48,17 +44,17 @@ public class TestKing {
 
         // Liste des mouvements possibles
         Set<Square> list = new HashSet<>();
-        list.add(new Square(0,6));
-        list.add(new Square(1,6));
-        list.add(new Square(1,4));
         list.add(new Square(1,5));
+        list.add(new Square(0,6));
+        list.add(new Square(1,4));
         list.add(new Square(0,4));
+        list.add(new Square(1,6));
 
         // Création de la liste mouvement via la méthode testée
-        Set<Square> mouvement = new HashSet<>(roi.mouvement(squareKing));
+        Set<Square> mouvements = roi.aplatir(roi.mouvement(squareKing));
 
         // Comparaison des deux listes
-        assertEquals(list,mouvement);
+        assertEquals(list,mouvements);
     }
     
     @Test
@@ -70,14 +66,14 @@ public class TestKing {
         
         // Liste des mouvements possibles
         Set<Square> list = new HashSet<>();
-        list.add(new Square(7,6));
         list.add(new Square(6,6));
         list.add(new Square(6,7));
+        list.add(new Square(7,6));
         
         // Création de la liste mouvement via la méthode testée
-        Set<Square> mouvement = new HashSet<>(roi.mouvement(squareKing));
+        Set<Square> mouvements = roi.aplatir(roi.mouvement(squareKing));
 
         // Comparaison des deux listes
-        assertEquals(list,mouvement);
+        assertEquals(list,mouvements);
     }
 }

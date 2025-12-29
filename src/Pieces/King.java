@@ -1,18 +1,12 @@
 package Pieces;
 
-import Appli.IPiece;
 import Appli.Square;
 import Modele.Couleur;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import static Appli.Plato.TAILLE;
 
-public class King implements IPiece {
-    private Couleur couleur;
-    private char lettre;
+public class King extends Piece {
 
     public King(Couleur couleur) {
         this.couleur = couleur;
@@ -22,16 +16,6 @@ public class King implements IPiece {
         else {
             this.lettre = 'k';
         }
-    }
-
-    @Override
-    public Couleur getCouleur() {
-        return couleur;
-    }
-    
-    @Override
-    public char getLettre() {
-        return lettre;
     }
 
     @Override
