@@ -1,10 +1,10 @@
-package Factory;
+package factory;
 
-import Appli.Square;
-import Modele.Couleur;
-import Appli.IPiece;
-import Pieces.King;
-import Pieces.Rook;
+import entities.board.Square;
+import entities.modeles.Couleur;
+import entities.board.IPiece;
+import entities.pieces.King;
+import entities.pieces.Rook;
 
 import java.util.HashMap;
 import java.util.Map;

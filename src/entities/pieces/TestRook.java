@@ -1,13 +1,11 @@
-package Pieces;
+package entities.pieces;
 
-import Appli.IPiece;
-import Appli.Square;
-import Modele.Couleur;
+import entities.board.IPiece;
+import entities.board.Square;
+import entities.modeles.Couleur;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

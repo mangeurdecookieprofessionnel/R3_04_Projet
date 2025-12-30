@@ -1,12 +1,12 @@
-package Pieces;
+package entities.pieces;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import Appli.IPiece;
-import Appli.Square;
-import Modele.Couleur;
+import entities.board.IPiece;
+import entities.board.Square;
+import entities.modeles.Couleur;
 
 public abstract class Piece implements IPiece {
 	protected Couleur couleur;

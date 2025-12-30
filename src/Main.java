@@ -1,8 +1,8 @@
-import Appli.Plato;
+import entities.board.Board;
 
 public class Main{
     public static void main(String[] args) {
-        Plato p = new Plato();
+        Board p = new Board();
     }
 
 

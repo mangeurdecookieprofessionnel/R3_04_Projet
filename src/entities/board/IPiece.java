@@ -1,6 +1,6 @@
-package Appli;
+package entities.board;
 
-import Modele.Couleur;
+import entities.modeles.Couleur;
 
 import java.util.List;
 import java.util.Set;

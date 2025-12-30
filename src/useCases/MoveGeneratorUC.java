@@ -1,21 +1,21 @@
 package useCases;
 
-import Appli.IPiece;
-import Appli.Move;
-import Appli.Plato;
-import Appli.Square;
-import Modele.Couleur;
+import entities.board.IPiece;
+import entities.board.Move;
+import entities.board.Board;
+import entities.board.Square;
+import entities.modeles.Couleur;
 
 import java.util.*;
 
 public class MoveGeneratorUC {
 
-    public List<Move> generateMoves(Plato plato) {
+    public List<Move> generateMoves(Board board) {
 
         List<Move> moves = new ArrayList<>();
-        Couleur tour = plato.getRegle().getTour();
+        Couleur tour = board.getRegle().getTour();
 
-        Map<Square, IPiece> bord = new HashMap<>(plato.getPlato());
+        Map<Square, IPiece> bord = new HashMap<>(board.getPlato());
 
         for (Map.Entry<Square, IPiece> entry : bord.entrySet()) {
 
@@ -24,7 +24,7 @@ public class MoveGeneratorUC {
 
             if (piece.getCouleur() != tour) continue;
 
-            Set<Square> destinations = plato.DeplacementsPossible(from);
+            Set<Square> destinations = board.DeplacementsPossible(from);
 
             for (Square to : destinations) {
                 moves.add(new Move(from, to));

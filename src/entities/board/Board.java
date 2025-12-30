@@ -1,27 +1,23 @@
-package Appli;
+package entities.board;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-import Factory.*;
-import Modele.*;
+import entities.rules.Rules;
+import factory.*;
+import entities.modeles.*;
 import useCases.MoveSelectorUC;
 
-public class Plato {
+public class Board {
     private Map<Square, IPiece> plato;
     public static final int TAILLE =8;
-    Regle regle;
+    Rules rules;
     private List<Move> moves;
     private MoveSelectorUC selector;
 
-    public Plato(){
+    public Board(){
         plato = new HashMap<Square, IPiece>();
         plato = PieceFactory.Begin();
-        regle = new Regle();
+        rules = new Rules();
         moves = new ArrayList<>();
         selector = new MoveSelectorUC();
     }
@@ -84,7 +80,6 @@ public class Plato {
                 plato.remove(arrivee);
             }
         }
-        
         return coupsLegaux;
     }
     
@@ -94,29 +89,29 @@ public class Plato {
      */
     public void jouerUnCoup(Move move){
     	if (plato.containsKey(move.depart())) {
-    		if (plato.get(move.depart()).getCouleur() == regle.getTour()){
+    		if (plato.get(move.depart()).getCouleur() == rules.getTour()){
                 if (DeplacementsPhysiques(move.depart()).contains(move.arrivee())){
                     if (plato.get(move.arrivee()) != null){
                     	plato.remove(move.arrivee());
                         plato.put(move.arrivee(), plato.get(move.depart()));
                         plato.remove(move.depart());
                         moves.add(move);
-                        regle.resetPrise();
+                        rules.resetPrise();
                     }
                     else {
                         plato.put(move.arrivee(), plato.get(move.depart()));
                         plato.remove(move.depart());
                         moves.add(move);
-                        regle.incPrise();
+                        rules.incPrise();
                     }
                 }
             }
-    		regle.incNbdemieCoup();
-    		if (regle.getNbDemieCoup() % 2 == 0) {
-    			regle.incNbcoup();
+    		rules.incNbdemieCoup();
+    		if (rules.getNbDemieCoup() % 2 == 0) {
+    			rules.incNbcoup();
     		}
-            regle.changeTour();
-            verificationEtatPartie(regle.getTour());
+            rules.changeTour();
+            verificationEtatPartie(rules.getTour());
     	}
     }
     
@@ -149,14 +144,14 @@ public class Plato {
      */
     public EtatPartie verificationEtatPartie(Couleur couleurJoueur) {
     	
-    	if (regle.getPrise() == 50) {
-    		regle.setPartie(EtatPartie.NULLE);
+    	if (rules.getPrise() == 50) {
+    		rules.setPartie(EtatPartie.NULLE);
     		System.out.println("50 coups sans prise");
     		return EtatPartie.NULLE;
     	}
     	
-    	if (estManqueDeMateriel() == true) {
-    		regle.setPartie(EtatPartie.NULLE);
+    	if (estManqueDeMateriel()) {
+    		rules.setPartie(EtatPartie.NULLE);
     		System.out.println("Roi vs Roi");
     		return EtatPartie.NULLE;
     	}
@@ -171,18 +166,18 @@ public class Plato {
     		}
     	}    	
     	if (aDesCoupsLegaux) {
-    		regle.setPartie(EtatPartie.JEU);
+    		rules.setPartie(EtatPartie.JEU);
     		return EtatPartie.JEU;
     	}
     	else {
 	    	Square posRoi = getPositionRoi(couleurJoueur);
 	    	if (estCaseMenacee(posRoi, couleurJoueur)) {
-	    		regle.setPartie(EtatPartie.FIN);
+	    		rules.setPartie(EtatPartie.FIN);
 	    		System.out.println("Echec et mat");
 	    		return EtatPartie.FIN;
 	    	}
 	    	else {
-	    		regle.setPartie(EtatPartie.NULLE);
+	    		rules.setPartie(EtatPartie.NULLE);
 	    		System.out.println("PAT");
 	    		return EtatPartie.NULLE;
 	    	}
@@ -227,8 +222,8 @@ public class Plato {
         return false;
     }
 
-    public Regle getRegle() {
-        return regle;
+    public Rules getRegle() {
+        return rules;
     }
 
     public void loadFromFEN(String trim) {

@@ -1,7 +1,7 @@
 package useCases;
 
-import Appli.Move;
-import Appli.Plato;
+import entities.board.Move;
+import entities.board.Board;
 
 import java.util.List;
 
@@ -10,12 +10,12 @@ public class MoveSelectorUC {
     private final MoveGeneratorUC generator = new MoveGeneratorUC();
     private final MoveValidatorUC validator = new MoveValidatorUC();
 
-    public Move selectBestMove(Plato plato) {
+    public Move selectBestMove(Board board) {
 
-        List<Move> moves = generator.generateMoves(plato);
+        List<Move> moves = generator.generateMoves(board);
 
         for (Move m : moves) {
-            if (validator.isLegal(plato, m) && plato.getRegle().getTour()== plato.getPlato().get(m.depart()).getCouleur()) {
+            if (validator.isLegal(board, m) && board.getRegle().getTour()== board.getPlato().get(m.depart()).getCouleur()) {
                 return m; // premier coup légal
             }
         }

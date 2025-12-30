@@ -1,15 +1,15 @@
-package Appli;
+package entities.rules;
 
-import Modele.*;
+import entities.modeles.*;
 
-public class Regle {
+public class Rules {
     private int nbCoup;
     private int nbDemieCoup;
     private Couleur tour;
     private int prise;
     private EtatPartie partie;
 
-    public Regle() {
+    public Rules() {
         this.nbCoup = 0;
         this.nbDemieCoup = 0;
         this.tour = Couleur.WHITE;

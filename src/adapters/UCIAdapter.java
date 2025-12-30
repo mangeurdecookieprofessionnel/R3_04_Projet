@@ -1,15 +1,15 @@
-package Adapters;
+package adapters;
 
-import Appli.Move;
-import Appli.Plato;
-import Appli.Square;
+import entities.board.Move;
+import entities.board.Board;
+import entities.board.Square;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class UCIAdapter {
 
-    private Plato plato;
+    private Board board;
 
     public static void main(String[] args) throws Exception {
         new UCIAdapter().run();
@@ -17,7 +17,7 @@ public class UCIAdapter {
 
     public void run() throws Exception {
 
-        plato = new Plato(); // plateau initial
+        board = new Board(); // plateau initial
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String line;
@@ -43,7 +43,7 @@ public class UCIAdapter {
                     break;
 
                 case "ucinewgame":
-                    plato = new Plato();
+                    board = new Board();
                     System.out.println("[UCI] Nouvelle partie");
                     break;
 
@@ -71,7 +71,7 @@ public class UCIAdapter {
 
         // startpos
         if (tokens[i].equals("startpos")) {
-            plato = new Plato();
+            board = new Board();
             i++;
         }
 
@@ -86,8 +86,8 @@ public class UCIAdapter {
                 i++;
             }
 
-            plato = new Plato();
-            plato.loadFromFEN(fen.toString().trim());
+            board = new Board();
+            board.loadFromFEN(fen.toString().trim());
 
         }
 
@@ -110,7 +110,7 @@ public class UCIAdapter {
         Square from = uciToSquare(token.substring(0, 2));
         Square to   = uciToSquare(token.substring(2, 4));
 
-        plato.jouerUnCoup(new Move(from, to));
+        board.jouerUnCoup(new Move(from, to));
 
     }
 
@@ -133,7 +133,7 @@ public class UCIAdapter {
 
     private void handleGo() {
 
-        Move move = plato.bestMove();
+        Move move = board.bestMove();
         if (move==null) {
             System.out.println("bestmove 0000");
             return;

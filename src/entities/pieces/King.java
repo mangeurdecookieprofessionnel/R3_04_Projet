@@ -1,10 +1,10 @@
-package Pieces;
+package entities.pieces;
 
-import Appli.Square;
-import Modele.Couleur;
+import entities.board.Square;
+import entities.modeles.Couleur;
 import java.util.ArrayList;
 import java.util.List;
-import static Appli.Plato.TAILLE;
+import static entities.board.Board.TAILLE;
 
 public class King extends Piece {
 
