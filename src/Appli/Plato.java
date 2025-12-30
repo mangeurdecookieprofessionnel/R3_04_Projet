@@ -9,18 +9,21 @@ import java.util.Set;
 
 import Factory.*;
 import Modele.*;
+import useCases.MoveSelectorUC;
 
 public class Plato {
     private Map<Square, IPiece> plato;
     public static final int TAILLE =8;
     Regle regle;
     private List<Move> moves;
+    private MoveSelectorUC selector;
 
     public Plato(){
         plato = new HashMap<Square, IPiece>();
         plato = PieceFactory.Begin();
         regle = new Regle();
         moves = new ArrayList<>();
+        selector = new MoveSelectorUC();
     }
     
     /**
@@ -121,7 +124,7 @@ public class Plato {
      * Retourne le plateau (uniquement pour les tests)
      * @return Map<Square, IPiece> Le plateau
      */
-    protected Map<Square, IPiece> getPlato() {
+    public Map<Square, IPiece> getPlato() {
     	return this.plato;
     }
     
@@ -223,5 +226,15 @@ public class Plato {
         }
         return false;
     }
-    
+
+    public Regle getRegle() {
+        return regle;
+    }
+
+    public void loadFromFEN(String trim) {
+    }
+
+    public Move bestMove() {
+        return selector.selectBestMove(this);
+    }
 }
