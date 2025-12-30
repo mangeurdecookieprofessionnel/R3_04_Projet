@@ -10,12 +10,10 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestBoard {
+    // Création du plateau
+    Board board = new Board();
     @Test
-    // Roi vs Roi
-    public void testPlatoManqueMateriel() {
-    	// Création du plateau
-        Board board = new Board();
-
+    public void testPositionKingW(){
         // Liste des mouvements possibles pour le roi blanc
         Set<Square> listRoiB = new HashSet<>();
         listRoiB.add(new Square(1, 2));
@@ -29,11 +27,12 @@ public class TestBoard {
 
         // Création de la liste mouvement via la méthode testée
         Set<Square> mouvementsRoiB = new HashSet<>(board.DeplacementsPossible(new Square(2,3)));
-        
+
         // Comparaison des deux listes
-        assertEquals(mouvementsRoiB, listRoiB);
-        
-        
+        assertEquals(listRoiB, mouvementsRoiB);
+    }
+    @Test
+    public void testPositionRookW(){
         // Liste des mouvements possibles pour la tour blanche
         Set<Square> listTourB = new HashSet<>();
         listTourB.add(new Square(6, 7));
@@ -53,11 +52,12 @@ public class TestBoard {
 
         // Création de la liste mouvement via la méthode testée
         Set<Square> mouvementsTourB = new HashSet<>(board.DeplacementsPossible(new Square(6,6)));
-        
+
         // Comparaison des deux listes
-        assertEquals(mouvementsTourB, listTourB);
-        
-        
+        assertEquals(listTourB, mouvementsTourB);
+    }
+    @Test
+    public void testPositionKingB(){
         // Liste des mouvements possibles pour le roi noir
         Set<Square> listRoiN = new HashSet<>();
         listRoiN.add(new Square(5, 7));
@@ -65,10 +65,13 @@ public class TestBoard {
 
         // Création de la liste mouvement via la méthode testée
         Set<Square> mouvementsRoiN = new HashSet<>(board.DeplacementsPossible(new Square(4,7)));
-        
+
         // Comparaison des deux listes
-        assertEquals(mouvementsRoiN, listRoiN);
-        
+        assertEquals(listRoiN, mouvementsRoiN);
+    }
+    @Test
+    // Roi vs Roi
+    public void testPlatoManqueMateriel() {
         // Blanc : La tour bouge
         board.jouerUnCoup(new Move(new Square(6, 6), new Square(3, 6)));
         
@@ -88,19 +91,17 @@ public class TestBoard {
         board.jouerUnCoup(new Move(new Square(4, 6), new Square(3, 7)));
         
         // Vérification qu'il ne reste que deux pièces dans le plateau 
-        assertEquals(board.getPlato().size(), 2);
+        assertEquals(2,board.getPlato().size());
         
         // Vérification du compteur de coups et demi-coups
-        assertEquals(board.rules.getNbCoup(),3);
-        assertEquals(board.rules.getNbDemieCoup(),6);
+        assertEquals(3, board.rules.getNbCoup());
+        assertEquals(6, board.rules.getNbDemieCoup());
     }
     
     @Test
     // Echec et mat
     public void testPlatoEchecEtMat() {
-    	// Création du plateau
-        Board board = new Board();
-        
+
         board.jouerUnCoup(new Move(new Square(2,3), new Square(3,4)));
         board.jouerUnCoup(new Move(new Square(4,7), new Square(3,7)));
         
@@ -115,12 +116,12 @@ public class TestBoard {
         
         board.jouerUnCoup(new Move(new Square(6,6), new Square(6,7)));
         
-        assertEquals(board.DeplacementsPossible(new Square(0,7)), new HashSet<>());
+        assertEquals(new HashSet<>(), board.DeplacementsPossible(new Square(0,7)));
         
-        assertEquals(board.rules.getPartie(),EtatPartie.FIN);
+        assertEquals(EtatPartie.FIN, board.rules.getPartie());
         
         // Vérification du compteur de coups et demi-coups
-        assertEquals(board.rules.getNbCoup(),4);
-        assertEquals(board.rules.getNbDemieCoup(),9);
+        assertEquals(4, board.rules.getNbCoup());
+        assertEquals(9, board.rules.getNbDemieCoup());
     }
 }
