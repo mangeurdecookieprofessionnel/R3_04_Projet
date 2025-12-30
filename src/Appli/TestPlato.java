@@ -1,40 +1,126 @@
 package Appli;
 
-import Pieces.King;
-import Pieces.Rook;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import Modele.EtatPartie;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPlato {
-    Plato plato = new Plato();
-    Square squareKing = new Square(4,0);
-    Square squareRook = new Square(0,0);
     @Test
-    public void testKing(){
-        assertEquals("1) X : 3 - Y : 1\n2) X : 4 - Y : 1\n3) X : 5 - Y : 1\n4) X : 5 - Y : 0\n5) X : 3 - Y : 0\n",plato.afficherMouvement(squareKing));
+    // Roi vs Roi
+    public void testPlatoManqueMateriel() {
+    	// Création du plateau
+        Plato plato = new Plato();
+
+        // Liste des mouvements possibles pour le roi blanc
+        Set<Square> listRoiB = new HashSet<>();
+        listRoiB.add(new Square(1, 2));
+        listRoiB.add(new Square(1, 3));
+        listRoiB.add(new Square(1, 4));
+        listRoiB.add(new Square(2, 4));
+        listRoiB.add(new Square(3, 4));
+        listRoiB.add(new Square(3, 3));
+        listRoiB.add(new Square(3, 2));
+        listRoiB.add(new Square(2, 2));
+
+        // Création de la liste mouvement via la méthode testée
+        Set<Square> mouvementsRoiB = new HashSet<>(plato.DeplacementsPossible(new Square(2,3)));
+        
+        // Comparaison des deux listes
+        assertEquals(mouvementsRoiB, listRoiB);
+        
+        
+        // Liste des mouvements possibles pour la tour blanche
+        Set<Square> listTourB = new HashSet<>();
+        listTourB.add(new Square(6, 7));
+        listTourB.add(new Square(7, 6));
+        listTourB.add(new Square(6, 5));
+        listTourB.add(new Square(6, 4));
+        listTourB.add(new Square(6, 3));
+        listTourB.add(new Square(6, 2));
+        listTourB.add(new Square(6, 1));
+        listTourB.add(new Square(6, 0));
+        listTourB.add(new Square(5, 6));
+        listTourB.add(new Square(4, 6));
+        listTourB.add(new Square(3, 6));
+        listTourB.add(new Square(2, 6));
+        listTourB.add(new Square(1, 6));
+        listTourB.add(new Square(0, 6));
+
+        // Création de la liste mouvement via la méthode testée
+        Set<Square> mouvementsTourB = new HashSet<>(plato.DeplacementsPossible(new Square(6,6)));
+        
+        // Comparaison des deux listes
+        assertEquals(mouvementsTourB, listTourB);
+        
+        
+        // Liste des mouvements possibles pour le roi noir
+        Set<Square> listRoiN = new HashSet<>();
+        listRoiN.add(new Square(5, 7));
+        listRoiN.add(new Square(3, 7));
+
+        // Création de la liste mouvement via la méthode testée
+        Set<Square> mouvementsRoiN = new HashSet<>(plato.DeplacementsPossible(new Square(4,7)));
+        
+        // Comparaison des deux listes
+        assertEquals(mouvementsRoiN, listRoiN);
+        
+        // Blanc : La tour bouge
+        plato.jouerUnCoup(new Move(new Square(6, 6), new Square(3, 6)));
+        
+        // Noir : Le roi bouge
+        plato.jouerUnCoup(new Move(new Square(4, 7), new Square(5, 7)));
+        
+        // Blanc : La tour bouge
+        plato.jouerUnCoup(new Move(new Square(3, 6), new Square(3, 7)));
+        
+        // Noir : Le roi bouge
+        plato.jouerUnCoup(new Move(new Square(5, 7), new Square(4, 6)));
+        
+        // Blanc : La roi bouge
+        plato.jouerUnCoup(new Move(new Square(2, 3), new Square(3, 3)));
+        
+        // Noir : Le roi prend la tour
+        plato.jouerUnCoup(new Move(new Square(4, 6), new Square(3, 7)));
+        
+        // Vérification qu'il ne reste que deux pièces dans le plateau 
+        assertEquals(plato.getPlato().size(), 2);
+        
+        // Vérification du compteur de coups et demi-coups
+        assertEquals(plato.regle.getNbCoup(),3);
+        assertEquals(plato.regle.getNbDemieCoup(),6);
     }
+    
     @Test
-    public void testRook(){
-        ArrayList<Square> list = new ArrayList<>();
-        list.add(new Square(0,1));
-        list.add(new Square(1,0));
-        list.add(new Square(0,2));
-        list.add(new Square(2,0));
-        list.add(new Square(0,3));
-        list.add(new Square(3,0));
-        list.add(new Square(0,4));
-        list.add(new Square(0,5));
-        list.add(new Square(5,0));
-        list.add(new Square(0,6));
-        list.add(new Square(6,0));
-        list.add(new Square(0,7));
-        list.add(new Square(7,0));
-
-        assertEquals(list,plato.DeplacementsPossible(squareRook));
+    // Echec et mat
+    public void testPlatoEchecEtMat() {
+    	// Création du plateau
+        Plato plato = new Plato();
+        
+        plato.jouerUnCoup(new Move(new Square(2,3), new Square(3,4)));
+        plato.jouerUnCoup(new Move(new Square(4,7), new Square(3,7)));
+        
+        plato.jouerUnCoup(new Move(new Square(3,4), new Square(3,5)));
+        plato.jouerUnCoup(new Move(new Square(3,7), new Square(2,7)));
+        
+        plato.jouerUnCoup(new Move(new Square(3,5), new Square(2,5)));
+        plato.jouerUnCoup(new Move(new Square(2,7), new Square(1,7)));
+        
+        plato.jouerUnCoup(new Move(new Square(2,5), new Square(1,5)));
+        plato.jouerUnCoup(new Move(new Square(1,7), new Square(0,7)));
+        
+        plato.jouerUnCoup(new Move(new Square(6,6), new Square(6,7)));
+        
+        assertEquals(plato.DeplacementsPossible(new Square(0,7)), new HashSet<>());
+        
+        assertEquals(plato.regle.getPartie(),EtatPartie.FIN);
+        
+        // Vérification du compteur de coups et demi-coups
+        assertEquals(plato.regle.getNbCoup(),4);
+        assertEquals(plato.regle.getNbDemieCoup(),9);
     }
-
-
 }

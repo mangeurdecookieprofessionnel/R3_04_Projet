@@ -1,67 +1,40 @@
 package Pieces;
 
-import Appli.IPiece;
-import Appli.Move;
 import Appli.Square;
-
+import Modele.Couleur;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import static Appli.Plato.TAILLE;
 
-public class King implements IPiece {
-
-    private Couleur couleur;
+public class King extends Piece {
 
     public King(Couleur couleur) {
         this.couleur = couleur;
+        if (getCouleur() == Couleur.WHITE) {
+            this.lettre = 'K';
+        }
+        else {
+            this.lettre = 'k';
+        }
     }
 
     @Override
-    public Couleur getCouleur() {
-        return couleur;
-    }
+    public List<List<Square>> mouvement(Square square) {
+        List<List<Square>> trajectoires = new ArrayList<>();
+        
+        int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-    @Override
-    public List<Square> mouvement(Square square) {
-        List<Square> squares = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            int nx = square.x() + dx[i];
+            int ny = square.y() + dy[i];
 
-        squares.add(new Square(square.x()-1, square.y()+1)); // Haut-Gauche
-        squares.add(new Square(square.x(), square.y()+1));   // Haut
-        squares.add(new Square(square.x()+1, square.y()+1)); // Haut-Droite
-        squares.add(new Square(square.x()+1, square.y()));   // Droite
-        squares.add(new Square(square.x()+1, square.y()-1)); // Bas-Droite
-        squares.add(new Square(square.x(), square.y()-1));   // Bas
-        squares.add(new Square(square.x()-1, square.y()-1)); // Bas-Gauche
-        squares.add(new Square(square.x()-1, square.y()));   // Gauche
-
-        Iterator<Square> iterator = squares.iterator();
-
-        while(iterator.hasNext()) {
-            Square s = iterator.next();
-            if(s.x()<0 || s.x()>=TAILLE ||  s.y()<0 || s.y()>=TAILLE) {
-                iterator.remove();
+            if (nx >= 0 && nx < TAILLE && ny >= 0 && ny < TAILLE) {
+                List<Square> path = new ArrayList<>();
+                path.add(new Square(nx, ny));
+                trajectoires.add(path);
             }
         }
-        return squares;
+        return trajectoires;
     }
-
-    @Override
-    public String afficherMouvementPiece(Square square) {
-        String mouvements="";
-        int count=1;
-        List<Square> squares = mouvement(square);
-        for (Square square1 : squares) {
-            mouvements+=(count++)+")   X : "+square1.x() + " " +"       Y :"+ square1.y()+"\n";
-        }
-        return mouvements;
-    }
-
-    @Override
-    public Boolean prise(Square square) {
-        return false;
-    }
-
-
 }

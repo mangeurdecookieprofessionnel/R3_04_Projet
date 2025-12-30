@@ -2,21 +2,26 @@ package Pieces;
 
 import Appli.IPiece;
 import Appli.Square;
+import Modele.Couleur;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestRook {
 
     @Test
-    public void testMid(){
-
+    public void test(){
+    	// Création de la tour aux coordonnées [5;5]
         IPiece tour = new Rook(Couleur.WHITE);
         Square squareRook = new Square(5,5);
-
-        ArrayList<Square> list = new ArrayList<>();
+        
+        // Liste des mouvements possibles
+        Set<Square> list = new HashSet<>();
         list.add(new Square(5,6));
         list.add(new Square(5,4));
         list.add(new Square(6,5));
@@ -31,31 +36,11 @@ public class TestRook {
         list.add(new Square(1,5));
         list.add(new Square(5,0));
         list.add(new Square(0,5));
+        
+        // Création de la liste mouvement via la méthode testée
+        Set<Square> mouvements = tour.aplatir(tour.mouvement(squareRook));
 
-        assertEquals(list, tour.mouvement(squareRook));
-    }
-    @Test
-    public void testCorner(){
-
-        IPiece tour = new Rook(Couleur.WHITE);
-        Square squareRook = new Square(0,0);
-
-        ArrayList<Square> list = new ArrayList<>();
-        list.add(new Square(0,1));
-        list.add(new Square(1,0));
-        list.add(new Square(0,2));
-        list.add(new Square(2,0));
-        list.add(new Square(0,3));
-        list.add(new Square(3,0));
-        list.add(new Square(0,4));
-        list.add(new Square(4,0));
-        list.add(new Square(0,5));
-        list.add(new Square(5,0));
-        list.add(new Square(0,6));
-        list.add(new Square(6,0));
-        list.add(new Square(0,7));
-        list.add(new Square(7,0));
-
-        assertEquals(list, tour.mouvement(squareRook));
+        // Comparaison des deux listes
+        assertEquals(list,mouvements);
     }
 }
