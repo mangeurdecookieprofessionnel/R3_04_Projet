@@ -1,31 +1,43 @@
 package Appli;
 
-import Modele.Couleur;
+import Modele.*;
 
 public class Regle {
     private int nbCoup;
     private int nbDemieCoup;
     private Couleur tour;
+    private int prise;
+    private EtatPartie partie;
 
     public Regle() {
         this.nbCoup = 0;
         this.nbDemieCoup = 0;
         this.tour = Couleur.WHITE;
+        this.prise = 0;
+        this.setPartie(EtatPartie.JEU);
     }
 
     public int getNbCoup() {
-        return (nbCoup / 2) + 1;
+        return nbCoup;
+    }
+    
+    public int getNbDemieCoup() {
+        return nbDemieCoup;
     }
 
     public Couleur getTour() {
         return tour;
     }
+    
+    public int getPrise() {
+    	return prise;
+    }
 
     public void changeTour(){
-        if(tour == Couleur.WHITE){
+        if (tour == Couleur.WHITE) {
             tour = Couleur.BLACK;
         }
-        else{
+        else {
             tour = Couleur.WHITE;
         }
     }
@@ -37,12 +49,20 @@ public class Regle {
     public void incNbdemieCoup(){
         this.nbDemieCoup++;
     }
-
-    public void resetNbDemiecoup(){
-        this.nbDemieCoup = 0;
+    
+    public void incPrise(){
+        this.prise++;
+    }
+    
+    public void resetPrise() {
+    	this.prise = 0;
     }
 
-    public int getNbDemieCoup() {
-        return nbDemieCoup;
-    }
+	public EtatPartie getPartie() {
+		return partie;
+	}
+
+	public void setPartie(EtatPartie partie) {
+		this.partie = partie;
+	}
 }
