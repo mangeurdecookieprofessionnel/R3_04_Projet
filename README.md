@@ -29,12 +29,12 @@ Le projet consiste à développer et tester un programme permettant  à deux jou
 Le projet porte sur les principes SOLID, la Clean architecture, la programmation dirigée par les tests, le travail en équipe, et la gestion des versions avec git. Le GUI (Graphical User Interface) est fourni par un outil externe : CuteChess, via le protocole UCI. Pour ce faire, le projet a été implémenté en Java.  
 ## ARCHITECTURE
 ![img.png](img.png)
-## 3. Bilan
-### 3.1 Réussites vs Limites
+## . Bilan
+### Réussites vs Limites
 Nous avons reussi a respecté la Clean Architecture et SOLID, la Communication complète avec CuteChess, la gestion du plateau, des règles du jeu, des pièces, tout nos tests sont passés et le code est extensible et documenté.
 La gestion de l'interface de collaboration Github.
 Nous avons appris l’importance d’une bonne architecture, la valeur des tests unitaires pour garantir la qualité, l’utilité des patterns de conception.
-### 3.2 Difficultés rencontrées
+### Difficultés rencontrées
 Nous avons eu des difficultés lors de la mise en relation entre CuteChess et notre projet car nous n’étions pas assez documenté et cela nous a pris plusieurs jours pour le faire fonctionner.
-### 3.3 Perspectives d'amélioration
+### Perspectives d'amélioration
 Nous devons améliorer la création du Bord et faire en sorte qu'il soit charger en fonction de l'etat FEN entré au début d'une partie cutechess. 
