@@ -6,15 +6,12 @@ Jean-François DENA       208
 
 PROJET R3.04 : Projet Jeu d’échec
 
-Présentation globale
-
--Projet
-
+## 1. Présentation Globale
+### 1.1 Le Projet
 Le projet consiste à développer et tester un programme permettant  à deux joueurs de jouer une finale de type KRK aux échecs, c’est à dire une fin de partie dans laquelle les blancs ont un roi (King) et une tour (Rook) et les noirs un roi.
 Le projet porte sur les principes SOLID, la Clean architecture, la programmation dirigée par les tests, le travail en équipe, et la gestion des versions avec git. Le GUI (Graphical User Interface) est fourni par un outil externe : CuteChess, via le protocole UCI.
 
--Mode d’emploi
-
+### 1.2 Mode d'emploi
 MODE D’EMPLOI DE L’APPLICATION R3_04 – MOTEUR D’ÉCHECS UCI
 
 PRÉREQUIS
@@ -40,18 +37,91 @@ Entrer la position initiale suivante (FEN) :
 Valider avec OK.
 Profiter de la partie.
 
-Présentation technique
+### 1.3 État du projet
+**Ce qui est Fonctionnel** :
+- Moteur de jeu KRK complet
+- Interface UCI avec CuteChess
+- Détection d'échec et mat
+- Règle des 50 coups
+- Gestion du pat
+- 
+## 2. Présentation Technique
+### 2.1 Clean Architecture
 
--Clean architecture
+Notre projet suit rigoureusement la Clean Architecture avec 4 couches :
 
--Diagramme d'architecture
+#### **Couche Domain (Entities)**
+entities.board.Board : Gestion complète du plateau d'échecs 8×8
+entities.board.IPiece : Interface définissant le contrat de toutes les pièces
+entities.board.Square : Record immuable représentant une case (x, y)
+entities.board.Move : Record immuable représentant un coup (départ → arrivée)
+entities.pieces.Piece : Classe abstraite avec implémentation commune à toutes les pièces
+entities.pieces.King : Implémentation spécifique du roi (déplacements sur 8 cases)
+entities.pieces.Rook : Implémentation spécifique de la tour (déplacements en ligne droite)
+entities.modeles.Couleur : Enumération WHITE/BLACK pour les couleurs des pièces
+entities.modeles.EtatPartie : Enumération JEU/NULLE/FIN pour l'état de la partie
+Justification : Cette couche contient les concepts métier fondamentaux qui changent rarement. Les records Square et Move garantissent l'immutabilité, l'interface IPiece permet le polymorphisme.
+
+#### **Couche Application (Use Cases)**
+useCases.MoveGeneratorUC : Génère la liste de tous les coups possibles pour un joueur donné
+useCases.MoveValidatorUC : Valide si un coup est légal (vérifie notamment les échecs au roi)
+useCases.MoveSelectorUC : Sélectionne le meilleur coup parmi ceux possibles
+Justification : Cette couche implémente les règles spécifiques au jeu KRK. Chaque usecase a une responsabilité unique. Ils dépendent uniquement du Domain Layer.
+
+#### **Couche Interface (Adapters)**
+adapters.UCIAdapter : Implémentation complète du protocole UCI (Universal Chess Interface) pour communiquer avec CuteChess
+Justification : Cet adapteur isole notre logique métier des détails du protocole UCI. Si nous changions d'interface, seul ce package serait affecté.
+
+#### **Couche Infrastructure**
+factory.PieceFactory : Implémentation du pattern Factory pour créer les configurations initiales de pièces
+Justification : Ce pattern centralise la création d'objets complexes. Permet de changer facilement la configuration initiale sans modifier le code métier.
+
+### 2.2 Diagramme d'architecture
 <img width="1714" height="720" alt="Diagramme de classe projet_krk_echec" src="https://github.com/user-attachments/assets/4d8a6010-791a-45e6-b270-9851be598358" />
 
--SOLID
+### 2.3 Principes SOLID
+### Principes SOLID respectés
 
--Design Patterns
+#### **Single Responsibility Principle**
+- `Board` : Gère uniquement le plateau
+- `Rules` : Gère uniquement les règles
+- `UCIAdapter` : Gère uniquement la communication UCI
 
--Tests unitaires
+#### **Open/Closed Principle**
+// Ouvert à l'extension
+public interface IPiece {
+    // Nouvelle pièce = nouvelle classe implémentant IPiece
+}
+// King et Rook peuvent remplacer Piece partout
+IPiece piece = new King(Couleur.WHITE);
+IPiece piece2 = new Rook(Couleur.BLACK);
+Interface Segregation Principle
+Interface IPiece minimale et cohérente
+
+Pas de méthodes inutiles pour certaines pièces
+
+Dependency Inversion Principle
+public class Board {
+    private Map<Square, IPiece> plato;  // Dépend de l'abstraction
+    // Pas de dépendance directe à King ou Rook
+}
+
+### 2.4 Design Patterns
+### **Design Patterns - IDENTIFIER** :
+markdown
+### Design Patterns utilisés
+
+**Factory Pattern** (`PieceFactory`)
+- Centralise la création des configurations initiales
+- Permet de changer facilement la position de départ
+
+**Template Method Pattern** (`Piece` classe abstraite)
+- Méthode `aplatir()` implémentée dans la classe mère
+- Méthode `mouvement()` abstraite à spécialiser
+
+**Strategy Pattern** (en émergence dans `MoveSelectorUC`)
+- Pourrait utiliser différentes stratégies de sélection
+### 2.5 Tests unitaires
 Dans le cadre de ce projet nous avons réalisé des tests unitaires afin de vérifier les méthodes importantes une par une et maintenir le code plus facilement. Nous avons principalement testé 3 classes : King, Rook et Board.
 Pour King nous avons vérifier les cases dans lesquels il peut aller en fonction de sa position : il n’aura pas les mêmes destinations possibles si il est au centre, sur le côté ou dans un coin.
 public class TestKing {
@@ -277,21 +347,19 @@ assertEquals(4, board.rules.getNbCoup());
 assertEquals(9, board.rules.getNbDemieCoup());
 }
 
--Bilan
-Nous avons développé une base solide pour un moteur d'échecs KRK. L'architecture est claire, les tests sont complets, et le code est extensible. Les principes SOLID sont respectés, notamment la séparation des responsabilités et l'inversion des dépendances.
+## 3. Bilan
+### 3.1 Réussites vs Limites
+Nous avons reussi a respecté la Clean Architecture et SOLID, la Communication complète avec CuteChess, Echec/mat, pat, 50 coups, le manque de matériel, la gestion du plateau, des règles du jeu, des pièces, tout nos tests sont passés et le code est extensible et documenté.
+La gestion de l'interface de collaboration Github.
 Nous avons appris l’importance d’une bonne architecture, la valeur des tests unitaires pour garantir la qualité, l’utilité des patterns de conception et la gestion des collections.
-Difficultés rencontrées
-Lors de la gestion des trajectoires nous avons dû implanter une List<List<Square>> pour les déplacements. Ensuite nous avons factoriser avec une classe abstraite Piece le code commun pour éviter l’arrêt a la première pièce rencontrée et pour assurer la cohérence entre toutes les pièces avec l’Interface IPiece, nous avons vérifié tous les cas limites (coins, bords, centre).
+Par contre nous n’avons pas pus intégrer de stratégie de jeu automatique, de gestion des coups spéciaux et d'algorithme Minimax.
+
+### 3.2 Difficultés rencontrées
 Nous avons eu des difficultés lors de l’implémentation de l’interface GUI de CuteChess car nous n’étions pas assez documenté et cela nous a pris plusieurs jours pour le faire fonctionner.
 
-Réussites VS Ratés:
-Nous avons reussi à gérer le plateau 8*8, les déplacements légaux du Roi et de la Tour, le Système de tout par tour, la prise en compte des pièces adverses, les tests unitaires complets, le Pattern Factory pour l’initialisation et la gestion de l’UI avec CuteChess.
-Noe points forts dans notre Architecture sont la séparation des responsabilités, nous avons des tests unitaires pour toutes les pièces, une bonne implémentation avec la List <List<Square>> et une facilité d’ajout de nouvelles pièces, .
-Par contre nous n’avons pas pus intégrer de stratégie de jeu automatique et la gestio des coups spéciaux.
-
-Améliorations:
-Nous devons améliorer le travail en groupe car il arrivait que 2 personnes code la même fonctionnalité sans s’en rendre compte.  
-
+### 3.3 Perspectives d'amélioration
+Nous devons améliorer le travail en groupe car il arrivait que 2 personnes code la même fonctionnalité sans s’en rendre compte. 
+Cette base solide nous permettrait d'ajouter facilement des fonctionnalités avancées come un algorithme d'IA.
 
 
  
