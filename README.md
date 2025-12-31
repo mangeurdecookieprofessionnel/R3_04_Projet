@@ -51,29 +51,29 @@ Profiter de la partie.
 Notre projet suit rigoureusement la Clean Architecture avec 4 couches :
 
 #### **Couche Domain (Entities)**
-entities.board.Board : Gestion complète du plateau d'échecs 8×8
-entities.board.IPiece : Interface définissant le contrat de toutes les pièces
-entities.board.Square : Record immuable représentant une case (x, y)
-entities.board.Move : Record immuable représentant un coup (départ → arrivée)
-entities.pieces.Piece : Classe abstraite avec implémentation commune à toutes les pièces
-entities.pieces.King : Implémentation spécifique du roi (déplacements sur 8 cases)
-entities.pieces.Rook : Implémentation spécifique de la tour (déplacements en ligne droite)
-entities.modeles.Couleur : Enumération WHITE/BLACK pour les couleurs des pièces
-entities.modeles.EtatPartie : Enumération JEU/NULLE/FIN pour l'état de la partie
+-entities.board.Board : Gestion complète du plateau d'échecs 8×8
+-entities.board.IPiece : Interface définissant le contrat de toutes les pièces
+-entities.board.Square : Record immuable représentant une case (x, y)
+-entities.board.Move : Record immuable représentant un coup (départ → arrivée)
+-entities.pieces.Piece : Classe abstraite avec implémentation commune à toutes les pièces
+-entities.pieces.King : Implémentation spécifique du roi (déplacements sur 8 cases)
+-entities.pieces.Rook : Implémentation spécifique de la tour (déplacements en ligne droite)
+-entities.modeles.Couleur : Enumération WHITE/BLACK pour les couleurs des pièces
+-entities.modeles.EtatPartie : Enumération JEU/NULLE/FIN pour l'état de la partie
 Justification : Cette couche contient les concepts métier fondamentaux qui changent rarement. Les records Square et Move garantissent l'immutabilité, l'interface IPiece permet le polymorphisme.
 
 #### **Couche Application (Use Cases)**
-useCases.MoveGeneratorUC : Génère la liste de tous les coups possibles pour un joueur donné
-useCases.MoveValidatorUC : Valide si un coup est légal (vérifie notamment les échecs au roi)
-useCases.MoveSelectorUC : Sélectionne le meilleur coup parmi ceux possibles
+-useCases.MoveGeneratorUC : Génère la liste de tous les coups possibles pour un joueur donné
+-useCases.MoveValidatorUC : Valide si un coup est légal (vérifie notamment les échecs au roi)
+-useCases.MoveSelectorUC : Sélectionne le meilleur coup parmi ceux possibles
 Justification : Cette couche implémente les règles spécifiques au jeu KRK. Chaque usecase a une responsabilité unique. Ils dépendent uniquement du Domain Layer.
 
 #### **Couche Interface (Adapters)**
-adapters.UCIAdapter : Implémentation complète du protocole UCI (Universal Chess Interface) pour communiquer avec CuteChess
+-adapters.UCIAdapter : Implémentation complète du protocole UCI (Universal Chess Interface) pour communiquer avec CuteChess
 Justification : Cet adapteur isole notre logique métier des détails du protocole UCI. Si nous changions d'interface, seul ce package serait affecté.
 
 #### **Couche Infrastructure**
-factory.PieceFactory : Implémentation du pattern Factory pour créer les configurations initiales de pièces
+-factory.PieceFactory : Implémentation du pattern Factory pour créer les configurations initiales de pièces
 Justification : Ce pattern centralise la création d'objets complexes. Permet de changer facilement la configuration initiale sans modifier le code métier.
 
 ### 2.2 Diagramme d'architecture
