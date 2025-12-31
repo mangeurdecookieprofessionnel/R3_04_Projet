@@ -31,12 +31,16 @@ Le projet porte sur les principes SOLID, la Clean architecture, la programmation
 ![img.png](img.png)
 ## DIAGRAMME
 <img width="1193" height="639" alt="Diagramme_KRK" src="https://github.com/user-attachments/assets/949197c2-827f-4daf-8ef1-0d53185911eb" />
-## BILAN
-### Réussites vs Limites
+
+### BILAN
+
+## Réussites vs Limites
 Nous avons reussi a respecté la Clean Architecture et SOLID, la Communication complète avec CuteChess, la gestion du plateau, des règles du jeu, des pièces, tout nos tests sont passés et le code est extensible et documenté.
 La gestion de l'interface de collaboration Github.
 Nous avons appris l’importance d’une bonne architecture, la valeur des tests unitaires pour garantir la qualité, l’utilité des patterns de conception.
-### Difficultés rencontrées
+
+## Difficultés rencontrées
 Nous avons eu des difficultés lors de la mise en relation entre CuteChess et notre projet car nous n’étions pas assez documenté et cela nous a pris plusieurs jours pour le faire fonctionner.
-### Perspectives d'amélioration
+
+## Perspectives d'amélioration
 Nous devons améliorer la création du Bord et faire en sorte qu'il soit charger en fonction de l'etat FEN entré au début d'une partie cutechess. 
