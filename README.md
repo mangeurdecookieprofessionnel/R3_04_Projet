@@ -44,7 +44,10 @@ Profiter de la partie.
 - Détection d'échec et mat
 - Règle des 50 coups
 - Gestion du pat
-- 
+
+**Non Fonctionnel** :
+- Minimax
+  
 ## 2. Présentation Technique
 ### 2.1 Clean Architecture
 
