@@ -1,131 +1,59 @@
 
-Maxime COURDAVAULT
-
-208
-
-Tristan PIOTON
-
-208
-
-Moussa WAGUE
-
-207
-
-Jean-François DENA
-
-208
-
-
+Maxime COURDAVAULT       208
+Tristan PIOTON       208
+Moussa WAGUE       207
+Jean-François DENA       208
 
 PROJET R3.04 : Projet Jeu d’échec
 
-
-
 Présentation globale
 
-Projet
+-Projet
 
 Le projet consiste à développer et tester un programme permettant  à deux joueurs de jouer une finale de type KRK aux échecs, c’est à dire une fin de partie dans laquelle les blancs ont un roi (King) et une tour (Rook) et les noirs un roi.
-
 Le projet porte sur les principes SOLID, la Clean architecture, la programmation dirigée par les tests, le travail en équipe, et la gestion des versions avec git. Le GUI (Graphical User Interface) est fourni par un outil externe : CuteChess, via le protocole UCI.
 
-Membres
-
-Voici les membres de notre équipe, ainsi que leurs groupes :
-
-Maxime COURDAVAULT
-
-208
-
-Tristan PIOTON
-
-208
-
-Moussa WAGUE
-
-207
-
-Jean-François DENA
-
-208
-
-Mode d’emploi
+-Mode d’emploi
 
 MODE D’EMPLOI DE L’APPLICATION R3_04 – MOTEUR D’ÉCHECS UCI
 
 PRÉREQUIS
-
-
-
 Avant d’utiliser l’application, il est nécessaire d’avoir installé : CuteChess, Java, l’archive ZIP du projet R3_04.
-
 Décompresser l’archive dans un dossier de votre choix.
-
 Localiser java.exe en entrant commande suivante dans l’invite de commandes Windows : where java
-
 Repérer le chemin vers le fichier java.exe (exemple : C:\Users...\jdks\openjdk-24\bin\java.exe)
-
 Copier coller le fichier java.exe dans le dossier suivant du projet : R3_04_Projet-main\src\cutechess
 
-
-
 CONFIGURATION DE CUTECHESS
-
-
-
 Ouvrir CuteChess.
-
 Aller dans le menu : Tools → Settings → Engines
-
 Cliquer sur le bouton “+” en bas à gauche.
-
 Renseigner le chemin du fichier “monmoteur.bat” situé dans le dossier : R3_04_Projet-main\src\cutechess
-
 Cliquer sur OK.
-
 Fermer complètement CuteChess puis le rouvrir.
 
-
-
 LANCEMENT D’UNE PARTIE
-
 Dans CuteChess, créer une nouvelle partie.
-
 Sélectionner le moteur ajouté précédemment comme CPU.
-
 Entrer la position initiale suivante (FEN) :
-
 4k3/6R1/8/8/2K5/8/8/8 w - - 0 1
-
 Valider avec OK.
-
 Profiter de la partie.
-
-
 
 Présentation technique
 
-Ce paragraphe est verrouillé par Maxime COURDAVAULT
-Clean architecture
+-Clean architecture
 
+-Diagramme d'architecture
+<img width="1714" height="720" alt="Diagramme de classe projet_krk_echec" src="https://github.com/user-attachments/assets/4d8a6010-791a-45e6-b270-9851be598358" />
 
+-SOLID
 
-Diagramme d'architecture
+-Design Patterns
 
-GROS CACA
-
-SOLID
-
-Design Patterns (s'il y en a)
-
-Tests unitaires
-
-
-
+-Tests unitaires
 Dans le cadre de ce projet nous avons réalisé des tests unitaires afin de vérifier les méthodes importantes une par une et maintenir le code plus facilement. Nous avons principalement testé 3 classes : King, Rook et Board.
-
 Pour King nous avons vérifier les cases dans lesquels il peut aller en fonction de sa position : il n’aura pas les mêmes destinations possibles si il est au centre, sur le côté ou dans un coin.
-
 public class TestKing {
 
 @Test
@@ -196,12 +124,8 @@ Square squareKing = new Square(7,7);
 }
 }
 
-
-
 En revanche pour Rook, peut importe sa position, il aura toujours le même nombre de cases possibles, nous avons donc réaliser un unique test :
-
 public class TestRook {
-
 @Test
 public void test(){
 // Création de la tour aux coordonnées [5;5]
@@ -232,11 +156,7 @@ Square squareRook = new Square(5,5);
        assertEquals(list,mouvements); 
 }
 }
-
-
-
 Enfin, la classe Board est celle qui contient le plus de tests. En effet nous avons du dans un premier temps vérifier les déplacements possibles des pièces en prenant en compte les pièces autours :
-
 public class TestBoard {
 // Création du plateau
 Board board = new Board();
@@ -297,10 +217,6 @@ listRoiN.add(new Square(3, 7));
        // Comparaison des deux listes 
        assertEquals(listRoiN, mouvementsRoiN); 
 }
-
-
-
-
 Ensuite, nous avons vérifier le comptage des coups et le nombre de pièces présentes pour déterminer l’état de la partie :
 
 @Test
@@ -332,8 +248,6 @@ assertEquals(3, board.rules.getNbCoup());
 assertEquals(6, board.rules.getNbDemieCoup());
 }
 
-
-
 Enfin nous avons vérifier le bon fonctionnement de l’état échec et math :
 
 @Test
@@ -363,153 +277,22 @@ assertEquals(4, board.rules.getNbCoup());
 assertEquals(9, board.rules.getNbDemieCoup());
 }
 
-
-
-Bilan
-
-Difficultés rencontrées
-
-Réussites VS Ratés
-
-Améliorations
-
-
-
-6.2-Défis rencontrés
-
-Pour les défis rencontrés, lors de la gestion des trajectoires nous avons dû implanter une List<List<Square>> pour les déplacements. Ensuite nous avons factoriser avec une classe abstraite Piece le code commun pour éviter l’arrêt a la première pièce rencontrée et pour assurer la cohérence entre toutes les pièces avec l’Interface IPiece, nous avons vérifié tous les cas limites (coins, bords, centre).
-
-
-
-7.Améliorations possibles
-
-A court terme :
-
-A long terme nous pourrions implémenter Minimax ou une heuristique simple. Ajouter une interface utilisateur basique et un Support des fichiers PGN.
-
-
-
-A long terme : Une table de transposition, étendre à un jeu d’échecs complet en ajoutant de nouvelles pièces.
-
-8.Conclusion
-
-Nous
-
-
-
-
-
-
-
-
-
-Mode d’emploi
-
-Brève Introduction
-
-Le projet KRK consiste à développer un moteur d’échec qui est spécialisé dans les fins de parties de type (Roi + Tour contre Roi). Nous avons implémenté les règles de base, les déplacements des pièces, et la gestion complète du plateau.
-
-Nous avons réussi à gérer le plateau 8*8, les déplacements légaux du Roi et de la Tour, le Système de tout par tour, la prise en compte des pièces adverses, les tests unitaires complets et le Pattern Factory pour l’initialisation.
-
-Nos points forts dans notre Architecture est la séparation des responsabilités, nous avons des tests unitaires pour toutes les pièces, une bonne implémentation avec la List <List<Square>> et une facilité d’ajout de nouvelles pièces.
-
-Pour l’instant nos défauts sont:
-
-
-
-Liste Couche Clean Architecture
-
--Structure des packages
-
--Diagramme de classes simplifié
-
--Principes SOLID appliqués
-
-
-
-Diagramme d’architecture
-
-
-
-Listes de tests unitaires
-
-
-
-
-
-Bilan du projet
-
+-Bilan
 Nous avons développé une base solide pour un moteur d'échecs KRK. L'architecture est claire, les tests sont complets, et le code est extensible. Les principes SOLID sont respectés, notamment la séparation des responsabilités et l'inversion des dépendances.
-
 Nous avons appris l’importance d’une bonne architecture, la valeur des tests unitaires pour garantir la qualité, l’utilité des patterns de conception et la gestion des collections.
-
-Difficultés :
-
-Ce qui peut être amélioré :
-
-
-
-
-
-
-
-
-
-Présentation globale
-
- 	-Projet 
-
-Le projet KRK consiste à développer un moteur d’échec qui est spécialisé dans les fins de parties de type (Roi + Tour contre Roi). Nous avons implémenté les règles de base:
-
--Un moteur de jeu complet avec règles des échecs
-
--Une interface UCI pour communiquer avec CuteChess
-
--Une architecture modulaire et extensible
-
--Des tests unitaires complets
-
-
-
--Guide utilisation
-
-Pour utiliser notre jeu il faut ouvrir CuteChess
-
-
-
-Présentation technique
-
--Clean Architecture
-
--Diagramme d’architecture
-
--SOLID
-
--Design Patterns
-
--Tests unitaires
-
-Bilan
-
--Difficultés rencontrées
-
+Difficultés rencontrées
+Lors de la gestion des trajectoires nous avons dû implanter une List<List<Square>> pour les déplacements. Ensuite nous avons factoriser avec une classe abstraite Piece le code commun pour éviter l’arrêt a la première pièce rencontrée et pour assurer la cohérence entre toutes les pièces avec l’Interface IPiece, nous avons vérifié tous les cas limites (coins, bords, centre).
 Nous avons eu des difficultés lors de l’implémentation de l’interface GUI de CuteChess car nous n’étions pas assez documenté et cela nous a pris plusieurs jours pour le faire fonctionner.
 
--Reussites VS Ratés
-
+Réussites VS Ratés:
 Nous avons reussi à gérer le plateau 8*8, les déplacements légaux du Roi et de la Tour, le Système de tout par tour, la prise en compte des pièces adverses, les tests unitaires complets, le Pattern Factory pour l’initialisation et la gestion de l’UI avec CuteChess.
-
-Nos points forts dans notre Architecture est la séparation des responsabilités, nous avons des tests unitaires pour toutes les pièces, une bonne implémentation avec la List <List<Square>> et une facilité d’ajout de nouvelles pièces.
-
+Noe points forts dans notre Architecture sont la séparation des responsabilités, nous avons des tests unitaires pour toutes les pièces, une bonne implémentation avec la List <List<Square>> et une facilité d’ajout de nouvelles pièces, .
 Par contre nous n’avons pas pus intégrer de stratégie de jeu automatique et la gestio des coups spéciaux.
 
-
-
--Améliorations
-
+Améliorations:
 Nous devons améliorer le travail en groupe car il arrivait que 2 personnes code la même fonctionnalité sans s’en rendre compte.  
 
- 
+
 
  
 
